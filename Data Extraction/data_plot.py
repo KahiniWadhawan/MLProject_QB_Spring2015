@@ -1,6 +1,4 @@
 from csv import DictReader
-import networkx as nx
-import numpy as np
 import matplotlib.pyplot as plt
 
 filename = "/Users/maverickreclci/Desktop/drivers/3612/1.csv"
