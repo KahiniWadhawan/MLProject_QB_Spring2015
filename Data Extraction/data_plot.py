@@ -6,12 +6,12 @@ import matplotlib.pyplot as plt
 filename = "/Users/maverickreclci/Desktop/drivers/3612/1.csv"
 
 def data_import(filename):
-        # input: the location of .csv file as a string. E.g."drivers/1/1.csv"
-        # output: a list of tuple, [(x1,y1),(x2,y2),....]
-        data = list(DictReader(open(filename,"r")))
-        x = [(float(e["x"])) for e in data]
-	y = [(float(e["y"])) for e in data]
-        return x,y
+    # input: the location of .csv file as a string. E.g."drivers/1/1.csv"
+    # output: a list of tuple, [(x1,y1),(x2,y2),....]
+    data = list(DictReader(open(filename,"r")))
+    x = [(float(e["x"])) for e in data]
+    y = [(float(e["y"])) for e in data]
+    return x,y
 
 x_y_lists = data_import(filename)
 listx = x_y_lists[0]
