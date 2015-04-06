@@ -1,7 +1,7 @@
 from csv import DictReader
 import matplotlib.pyplot as plt
 
-filename = "/Users/maverickreclci/Desktop/drivers/3612/1.csv"
+filename = "../../drivers/3612/2.csv"
 
 def data_import(filename):
         # input: the location of .csv file as a string. E.g."drivers/1/1.csv"
@@ -17,9 +17,8 @@ listy = x_y_lists[1]
 
 #plotting plot from x & y lists
 plt.plot(listx,listy)
-#plt.scatter(listx,listy,c='green', alpha=0.5)
-
-
+plt.scatter(listx,listy,c='yellow', alpha=0.5)
+plt.grid()
 plt.xlabel('x-coordinate', fontsize=18, color='black')
 plt.ylabel('y-coordinate', fontsize=18, color='black')
 plt.show()
