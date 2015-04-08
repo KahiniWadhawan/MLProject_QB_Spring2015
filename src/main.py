@@ -15,7 +15,7 @@ def data_import(path):
 
 def user_examples(user,train,questions):
 	"""
-	input: a user's id
+	inputs: a user's id
 		   training set
 		   all questions
 
@@ -43,6 +43,21 @@ def user_examples(user,train,questions):
 	return qs,positions
 
 def XY_generator(user,train,questions):
+	"""
+	inputs: a user's id
+		    training set
+		    all questions
+
+	outputs:
+		X, a list of numpy arrays.
+			Example -> ([[1,2,3,4],
+						 [5,6,7,8],
+						 [9,10,11,12]])
+		Y, a list of answering positions  of a user 
+		    with respect to each question 
+		    Example -> ([60.21, 93.32, -56.89,...])
+
+	"""
 	X = []
 	Y = []
 	qs,Y = user_examples(user, train, questions)
