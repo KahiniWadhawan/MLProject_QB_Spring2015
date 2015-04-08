@@ -19,6 +19,13 @@ class User:
 		self.reg.fit(X,Y)
 
 	def predict(self,X):
+	
 		sign = self.clf.predict(X)
+	
+		if sign[0] > 0:
+			sign = ""
+		else:
+			sign = "-"
 		pos = self.reg.predict(X)
+
 		return str(sign)+str(pos)

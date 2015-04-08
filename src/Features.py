@@ -22,7 +22,10 @@ class FeatureExtractor:
 	I am not sure if this works for both classification and 
 	regression tasks since both may need different features.
 	"""
-	def __init__(self,question):
+	def __init__(self):
+		pass
+
+	def __call__(self,question):
 		self.question = question
 
 	def category(self):
@@ -35,10 +38,9 @@ class FeatureExtractor:
 		vector[categories.index(self.question["category"])] = 1
 		return vector
 
-	def extract():
+	def extract(self):
 		# this method should return a numpy array as a X vector
 		# concatenating feature vectors from other methods using
 		# np.concatenate()
-		pass
-
+		return self.category()
 
