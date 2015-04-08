@@ -1,7 +1,7 @@
 import numpy as np
 
 """
-Note Pad
+Scratch Pad
 
 >>> a = np.array([1,2,3])
 >>> b = np.array([4,5,6])
@@ -9,7 +9,7 @@ Note Pad
 array([1, 2, 3, 4, 5, 6])
 
 """
-genres = ['Earth Science', 'Biology', 'Literature', 'Astronomy',
+categories = ['Earth Science', 'Biology', 'Literature', 'Astronomy',
 		  'Fine Arts', 'Other', 'Social Studies', 'Mathematics',
 		  'Chemistry', 'Physics', 'History']
 
@@ -25,14 +25,14 @@ class FeatureExtractor:
 	def __init__(self,question):
 		self.question = question
 
-	def genre(self):
+	def category(self):
 		"""
 		this method returns a numpy array with only one entry = 1
 		whose index corresponds to a position of a given question's genre
 		in a list, genres.
 		"""
-		vector = np.zeros(len(genres))
-		vector[genres.index(self.question["genre"])] = 1
+		vector = np.zeros(len(categories))
+		vector[categories.index(self.question["category"])] = 1
 		return vector
 
 	def extract():
