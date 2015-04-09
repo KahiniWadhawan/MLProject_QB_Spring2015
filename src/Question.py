@@ -1,17 +1,11 @@
 import numpy as np
 
-categories = ['Earth Science', 'Biology', 'Literature', 'Astronomy',
-		  'Fine Arts', 'Other', 'Social Studies', 'Mathematics',
-		  'Chemistry', 'Physics', 'History']
 
-class FeatureExtractor:
+class Question:
 	"""
-	This class FeatureExtractor is used to extract features
-	of ONE question from questions.csv file. In other words, 
-	this class gives us only an X vector (not Y)
+	This class is used to extract question level features
+	of ONE question from questions.csv file.
 
-	I am not sure if this works for both classification and 
-	regression tasks since both may need different features.
 	"""
  	def __init__(self,qid,answer,category,text):
 		self.qid = qid 
