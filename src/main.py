@@ -6,6 +6,8 @@ from Features import FeatureExtractor
 
 folder_path = "../data"
 
+
+
 def data_import(path):
 	"""
 	input: a path to the .csv file you want to import
@@ -25,22 +27,22 @@ def user_examples(user,train,questions):
     		[(question1,position1),(question2,position2),....
     		This gives us questions a specific user answered and positions
 	"""
-	positions = [] 
-	question_id = [] # storing question id
 
+	pos_qid = []
 	for t in train:
 		if t["user"] == user:
-			positions.append(float(t["position"]))
-			question_id.append(t["question"])
+			pos_qid.append((float(t["position"]),t["question"]))
 
-	assert len(positions) > 0, "seems like there is no user named:%s"%user
-	qs = [] # storing an actual question object (dict)
-	
+	assert len(pos_qid) > 0, "seems like there is no user named:%s"%user
+	qs_pos = []
+
+
 	for q in questions:
-		if q["id"] in question_id:
-			qs.append(q)
+		for i,(pos,qid) in enumerate(pos_qid):
+			if q["id"] == qid:
+				qs_pos.append((q,pos))
 
-	return qs,positions
+	return zip(*qs_pos)
 
 def XY_generator(user,train,questions):
 	"""
@@ -61,7 +63,8 @@ def XY_generator(user,train,questions):
 	X = []
 	Y = []
 	qs,Y = user_examples(user, train, questions)
-
+	#print "qs:",len(qs)
+	#print "Y:",len(Y)
 	FE = FeatureExtractor()
 	for q in qs:
 		FE(q) # feed this FeatureExtractor with a question data
@@ -69,28 +72,72 @@ def XY_generator(user,train,questions):
 
 	return X,Y
 
+def X_generator(qid,question):
+	FE = FeatureExtractor()
+	for q in question:
+		if q["id"] == qid:
+			FE(q)
+			return FE.extract()
+
+
+def users(samples):
+	"""
+	From sample set, extract user ids 
+	"""
+	user_ids = set()
+
+	for s in samples:
+		user_ids.add(s["user"])
+	
+	return user_ids
+
+def ensemble(UserGroup,X):
+
+	most_common = lambda lst: max(set(lst), key=lst.count)
+
+	signs = []
+	positions = []
+	for u in UserGroup.keys():
+		output = float(UserGroup[u].predict(X))
+		signs.append(np.sign(output))
+		positions.append(abs(output))
+
+	return most_common(signs)*np.average(positions)
+
+
+
+
+
 if __name__ == "__main__":
 	train = data_import(folder_path+"/train.csv")
 	questions = data_import(folder_path+"/questions.csv")
-	X,Y = XY_generator(user="4", train=train, questions=questions)
+
+	user_ids = users(train)
+	UserGroup = {}
+	# user 0,100
+	#X,Y = XY_generator("100",train,questions)
+
 	
-	Y_cls = map(np.sign,Y)
-	Y_reg = map(abs,Y)
+	
+	for u in user_ids:
+		X,Y = XY_generator(u,train,questions)
+		Y_cls = map(np.sign,Y)
+		Y_reg = map(abs,Y)
+		user = User()
+		user.fit_classifier(X, Y_cls)
+		user.fit_regression(X, Y_reg)
+		UserGroup[u] = user
 
-	user = User()
-	user.fit_classifier(X, Y_cls)
-	user.fit_regression(X, Y_reg)
-
-	# test code below 
-	FE = FeatureExtractor()
 	test = data_import(folder_path+"/test.csv")
-	qs_for_user = [t["question"] for t in test if t["user"] == "4"]
+	for t in test:
+		if t["user"] in UserGroup.keys():
+			result = UserGroup[t["user"]].predict(X_generator(t["question"], questions))
+			print t["id"] +","+ str(result)
+		else:
+			result = ensemble(UserGroup,X_generator(t["question"], questions))
+			print t["id"] +","+ str(result)
 
-	for q in questions:
-		if q["id"] in qs_for_user:
-			FE(q)
-			X = FE.extract()
-			print user.predict(X)
+	
 
 
 
