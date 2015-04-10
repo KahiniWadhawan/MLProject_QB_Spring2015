@@ -20,10 +20,10 @@ class Question:
 		#call get info to get other fields 
 		info = get_info(self.qid)
 
- 		self.text = info[0]
-		self.answer = info[1]
-		self.category = info[2]
-		self.words = info[3]
+ 		self.text = info["text"]
+		self.answer = info["answer"]
+		self.category = info["category"]
+		self.words = info["words"]
 
 			
 	def get_info(self,qid):
