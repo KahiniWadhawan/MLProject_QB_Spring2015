@@ -6,6 +6,7 @@ Created on Fri Apr 10 16:26:47 2015
 """
 import sqlite3, os
 from matplotlib import pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
 
 
 class Exploration(object):
@@ -13,6 +14,7 @@ class Exploration(object):
         os.chdir('../../data')
         self.conn = sqlite3.connect('quizbowl_buzz3.db')
         self.cur = self.conn.cursor()
+        self.pp = PdfPages('all_plots.pdf')
     
     def ques_per_cat(self):
         query = "select category, count(*) as count from questions where usage != 'test' group by category order by count DESC "
@@ -23,7 +25,11 @@ class Exploration(object):
         plt.bar(range(len(Y)), Y, align='center')
         plt.xticks(range(len(X)), X, size='small', rotation='vertical')
         plt.title("Questions per Category")
-        plt.show()
+        #plt.show()
+        self.pp.savefig()
+        plt.close()
+        #self.pp.close()
+        #plt.savefig(self.pp, format = 'pdf')
         
         print "\n\n"
 
@@ -36,8 +42,12 @@ class Exploration(object):
         plt.bar(range(len(Y)), Y, align='center')
         plt.xticks(range(len(X)), X, size='small', rotation='vertical')
         plt.title("Unique users per Category")
-        plt.show()
+        #plt.show()
+        plt.savefig(self.pp, format = 'pdf')
         #print c.fetchall()
+        self.pp.savefig()
+        plt.close()
+        #self.pp.close()
         print "\n\n"
         
     def cat_avg_buzz_pos(self):
@@ -49,8 +59,12 @@ class Exploration(object):
         plt.bar(range(len(Y)), Y, align='center')
         plt.xticks(range(len(X)), X, size='small', rotation='vertical')
         plt.title("Avg. Buzz position per Category")
-        plt.show()
+        #plt.show()
+        plt.savefig(self.pp, format = 'pdf')
         #print c.fetchall()
+        self.pp.savefig()
+        plt.close()
+        #self.pp.close()
         print "\n\n"
         
     def user_avg_buzz_pos(self):
@@ -62,8 +76,12 @@ class Exploration(object):
         plt.bar(range(len(Y)), Y, align='center')
         plt.xticks(range(len(X)), X, size='small', rotation='vertical')
         plt.title("Avg. Buzz position per User")
-        plt.show()
+        #plt.show()
+        plt.savefig(self.pp, format = 'pdf')
         #print c.fetchall()
+        self.pp.savefig()
+        plt.close()
+        #self.pp.close()
         print "\n\n"
         
     def cat_correctness_ratio(self):
@@ -75,8 +93,12 @@ class Exploration(object):
         plt.bar(range(len(Y)), Y, align='center')
         plt.xticks(range(len(X)), X, size='small', rotation='vertical')
         plt.title("Correctness ratio per Category")
-        plt.show()
+        #plt.show()
+        plt.savefig(self.pp, format = 'pdf')
         #print c.fetchall()
+        self.pp.savefig()
+        self.pp.close()
+        plt.close()
         print "\n\n"
         
 if __name__ == "__main__":
