@@ -1,0 +1,17 @@
+Number of questions per category
+
+
+(u'Literature', 2372),
+ (u'Social Studies', 1736),
+ (u'Fine Arts', 1058),
+ (u'History', 1047),
+ (u'Physics', 543),
+ (u'Chemistry', 425),
+ (u'Biology', 391),
+ (u'Mathematics', 155),
+ (u'Other', 103),
+ (u'Astronomy', 90),
+ (u'Earth Science', 29),
+ (u'category', 1)]
+
+
