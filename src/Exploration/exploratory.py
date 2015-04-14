@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Apr 10 16:26:47 2015
 
-@author: manjhunathkr
-"""
 import sqlite3, os
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages

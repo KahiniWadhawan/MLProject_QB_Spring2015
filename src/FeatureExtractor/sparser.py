@@ -38,7 +38,7 @@ if __name__ == "__main__":
     all_questions =  c.fetchall()
     
     print "questions fetched"
-    pointer_id = 0
+    pointer_id = 152
     print "started"
     count = pointer_id
     passed_ids = []

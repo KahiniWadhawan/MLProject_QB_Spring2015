@@ -18,6 +18,7 @@ class Question:
  	def __init__(self,qid):
 
 		self.qid = qid
+           self.get_info()
 		
 			
 	def get_info(self):
@@ -27,7 +28,7 @@ class Question:
 		info = {}
 		qid = self.qid
 		
-		#connect database
+
 		conn = sqlite3.connect('../../data/quizbowl_buzz.db')
 		cur = conn.cursor()
 		
