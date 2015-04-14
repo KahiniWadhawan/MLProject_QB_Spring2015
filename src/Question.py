@@ -1,6 +1,8 @@
 import numpy as np
 import nltk
 import sqlite3
+import re
+import string
 
 
 stopwords = set(nltk.corpus.stopwords.words())
@@ -31,33 +33,28 @@ class Question:
 		
 		query = "select text,answer,category,words from questions where id =? " 		
 		c = cur.execute(query,(qid,))
-		res = c.fetchall()
-		info["text"] = res[0][0]
-		info["answer"] = res[0][1]
-		info["category"] = res[0][2]
-		info["words"] = res[0][3]
+		info = c.fetchall()
+		self.text = info[0][0]
+		self.answer = info[0][1]
+		self.category = info[0][2]
+		self.words = info[0][3]
 
-		self.text = info["text"]
-		self.answer = info["answer"]
-		self.category = info["category"]
-		self.words = info["words"]
-		conn.close()
-	
-		return info
+		conn.close()		
 
 
 	def tokenize(self,remove_stopwords=False):
 		"""
 		This method tokenizes the question text. It
 		can give all tokens, tokens w/o stopwords 
-		or tokens that are only with important keywords. 
+		or tokens that are only with important keywords.
+		This gives the same as self.words, if used with
+		remove_stopwords True 
  		"""
 		text = self.text
 		tokens = [] 
 
- 		text = text.translate(None, string.punctuation).lower()
-		#ques = re.sub('[%s]' % re.escape(string.punctuation), '', ques)
-
+ 		#text = text.translate(None).lower()
+		text = re.sub('[%s]' % re.escape(string.punctuation), '', text.lower())
 		temp_tokens = text.split()
 		
 		#remove stopwords 
@@ -68,12 +65,12 @@ class Question:
 				else:
 					tokens.append(word)
 		else:
-			tokens = temp_tokens()
+			tokens = temp_tokens
 
 		return tokens 
 		
 
-	def get_sentences():
+	def get_sentences(self):
 		"""
 		This method gives out list of sentences from 
 		question text. The index of sentence in the 
@@ -111,6 +108,12 @@ if __name__ == "__main__":
 	ques = Question(1)
 	ques.get_info()
 	print "question text :: ", ques.text
+	print "question ans :: ", ques.answer
+	print "question cat :: ", ques.category
+	print "question words :: ", ques.words
+
+	print "sent :: ", len(ques.get_sentences())
+	print "tokens :: ", ques.tokenize(True), len(ques.tokenize(True))
 
 
 	
