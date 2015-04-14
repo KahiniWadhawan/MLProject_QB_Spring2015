@@ -16,7 +16,7 @@ class SuperModel:
 		self.position.fit(X,Y)
 
 	def predict_correct(self,X,pos):
-		return self.correctness.predict(X)
+		return self.correctness.predict(X,pos)
 
 	def predict_pos(self,X):
 		return self.position.predict(X)
