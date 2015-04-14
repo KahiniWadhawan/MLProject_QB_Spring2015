@@ -20,6 +20,7 @@ class UserFeatureExtractor(FeatureExtractor):
         c = cur.execute(query,("test",category,user_id))
         cor_ratio = c.fetchall()[0][0]
        	print "cor_ratio :: ", cor_ratio
+	conn.close()
         
 	return cor_ratio	
         
@@ -32,6 +33,7 @@ class UserFeatureExtractor(FeatureExtractor):
         c = cur.execute(query,("test",category,user_id))
 	avg_buzz = c.fetchall()[0][0]
        	print "avg_buzz :: ", avg_buzz
+	conn.close()
         
 	return avg_buzz	
         
