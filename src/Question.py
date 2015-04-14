@@ -1,6 +1,8 @@
 import numpy as np
 import nltk
 import sqlite3
+import re
+import string
 
 
 stopwords = set(nltk.corpus.stopwords.words())
@@ -13,67 +15,46 @@ class Question:
 	of ONE question from questions.csv file.
 
 	"""
- 	def __init__(self,qid,answer,category,text):
+ 	def __init__(self,qid):
 
 		self.qid = qid
 		
-		#call get info to get other fields 
-		info = get_info(self.qid)
-
- 		self.text = info["text"]
-		self.answer = info["answer"]
-		self.category = info["category"]
-		self.words = info["words"]
-
 			
-	def get_info(self,qid):
+	def get_info(self):
 		"""This method will return info of question like 
-		text, answer, category and words. It return info 
-		dict that has string text as key and its actual value, 
-		string answer as key and value, string category as key 
-		and value and string words as key and value(words dict) """
+		text, answer, category and words as a dict."""
 		
 		info = {}
+		qid = self.qid
 		
 		#connect database
-		conn = sqlite3.connect('quizbowl_buzz.db')
-		c = conn.cursor()
+		conn = sqlite3.connect('../../data/quizbowl_buzz.db')
+		cur = conn.cursor()
 		
-		#get question text 
-		query = "select text from questions where id = " + qid 		
-		text = cur.execute(query)
-		info["text"] = text		
+		query = "select text,answer,category,words from questions where id =? " 		
+		c = cur.execute(query,(qid,))
+		info = c.fetchall()
+		self.text = info[0][0]
+		self.answer = info[0][1]
+		self.category = info[0][2]
+		self.words = info[0][3]
 
-		#get answer 
-		query = "select answer from questions where id = " + qid 		
-		answer = cur.execute(query)
-		info["answer"] = answer	
-
-		#get category 
-		query = "select category from questions where id = " + qid 		
-		category = cur.execute(query)
-		info["category"] = category	
-
-		#get words 
-		query = "select words from questions where id = " + qid 		
-		words = cur.execute(query)
-		info["words"] = words
-	
-		return info
+		conn.close()		
 
 
 	def tokenize(self,remove_stopwords=False):
 		"""
 		This method tokenizes the question text. It
 		can give all tokens, tokens w/o stopwords 
-		or tokens that are only with important keywords. 
+		or tokens that are only with important keywords.
+		This gives the same as self.words, if used with
+		remove_stopwords True 
  		"""
 		text = self.text
 		tokens = [] 
 
- 		text = text.translate(None, string.punctuation).lower()
-		#ques = re.sub('[%s]' % re.escape(string.punctuation), '', ques)
-
+ 		#text = text.translate(None).lower()
+		text = re.sub('[%s]' % re.escape(string.punctuation), '', text.lower())
 		temp_tokens = text.split()
 		
 		#remove stopwords 
@@ -84,12 +65,12 @@ class Question:
 				else:
 					tokens.append(word)
 		else:
-			tokens = temp_tokens()
+			tokens = temp_tokens
 
 		return tokens 
 		
 
-	def get_sentences():
+	def get_sentences(self):
 		"""
 		This method gives out list of sentences from 
 		question text. The index of sentence in the 
@@ -121,4 +102,19 @@ class Question:
 		return sentences 
 
 
-		
+	
+
+if __name__ == "__main__":
+	ques = Question(1)
+	ques.get_info()
+	print "question text :: ", ques.text
+	print "question ans :: ", ques.answer
+	print "question cat :: ", ques.category
+	print "question words :: ", ques.words
+
+	print "sent :: ", len(ques.get_sentences())
+	print "tokens :: ", ques.tokenize(True), len(ques.tokenize(True))
+
+
+	
+	
