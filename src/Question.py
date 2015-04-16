@@ -18,9 +18,9 @@ class Question:
  	def __init__(self,qid):
 
 		self.qid = qid
-           self.get_info()
+		self.get_info()
 		
-			
+	
 	def get_info(self):
 		"""This method will return info of question like 
 		text, answer, category and words as a dict."""
