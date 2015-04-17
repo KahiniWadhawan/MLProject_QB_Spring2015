@@ -6,5 +6,5 @@ Created on Thu Apr  9 16:56:00 2015
 """
 
 class FeatureExtractor(object):
-    def __init__():
+	def __init__():
         

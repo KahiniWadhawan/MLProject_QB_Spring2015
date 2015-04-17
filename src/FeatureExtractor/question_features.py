@@ -5,10 +5,10 @@ import sys
 sys.path.insert(0, '../')
 from question import Question
 from collections import defaultdict
-from parent_feature_extractor import FeatureExtractor
+#from parent_feature_extractor import FeatureExtractor
 
 
-class QuestionFeatureExtractor(FeatureExtractor):
+class QuestionFeatureExtractor():
     def __init__(self, qid):
         self.question = Question(qid)
         self.qtext = self.question.text

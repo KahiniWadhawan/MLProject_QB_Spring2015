@@ -24,16 +24,20 @@ def XY_generator(train):
 		    all questions
 
 	outputs:
-		X, a list of numpy arrays.
-			Example -> ([[1,2,3,4],
-						 [5,6,7,8],
-						 [9,10,11,12]])
+                X_POS is a dict:- key: (qid,uid), value: matrix 
+			of word level features for each entry in 
+			train & test 
+		
+		X_CO is conventional feature vec
+
+
 		Y, a list of answering positions  of a user 
 		    with respect to each question 
 		    Example -> ([60.21, 93.32, -56.89,...])
 
 	"""
-	X = []
+	X_POS = defaultdict(list)
+	X_CO = []
 	Y = []
 	#qs,Y = user_examples(user, train, questions)
 
@@ -43,11 +47,18 @@ def XY_generator(train):
 		qid = ex["question"]
 		FE(user_id,qid)
 
-		X.append(FE.feature_vec())
+		X_word_level = FE.pos_feature_vec() #you will get 2 X
+	
+		for word_pos, feat_vec in X_word_level.iteritems():
+			X_POS[(qid,user_id)].append(feat_vec)
+
+
+		X_CO = FE.co_feature_vec()
+		
 		Y.append(ex["position"])  
 
 
-	return X,Y
+	return X_POS, X_CO, Y
 
 
 if __name__ == "__main__":
