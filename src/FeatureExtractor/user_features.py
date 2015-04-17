@@ -15,6 +15,7 @@ class UserFeatureExtractor():
     	self.user = User(user_id)
         #self.question = Question(qid)
         self.user_id = self.user.user_id
+	self.features =  defaultdict(list)
 
 
    def user_category_correctness_ratio(self,category):
@@ -25,8 +26,10 @@ class UserFeatureExtractor():
         c = cur.execute(query,("test",category,self.user_id))
         cor_ratio = c.fetchall()[0][0]
 	conn.close()
+	self.features["u_c_cor_ratio"] = cor_ratio 
+
         
-	return cor_ratio	
+	#return cor_ratio	
         
 
    def user_category_avg_buzz(self,category):
@@ -37,8 +40,9 @@ class UserFeatureExtractor():
         c = cur.execute(query,("test",category,self.user_id))
 	avg_buzz = c.fetchall()[0][0]
 	conn.close()
-        
-	return avg_buzz
+        self.features["u_c_avg_buzz"] = avg_buzz 
+
+	#return avg_buzz
 
 
 if __name__ == "__main__":

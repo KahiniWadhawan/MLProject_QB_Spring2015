@@ -28,7 +28,6 @@ class Question:
 		info = {}
 		qid = self.qid
 		
-
 		conn = sqlite3.connect('../../data/quizbowl_buzz.db')
 		cur = conn.cursor()
 		
@@ -119,3 +118,5 @@ if __name__ == "__main__":
 
 	
 	
+
+
