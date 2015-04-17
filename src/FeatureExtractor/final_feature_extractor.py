@@ -22,6 +22,7 @@ class FinalFeatureExtractor():
 	
 		self.user = User(user_id)
 	        self.question = Question(qid)
+		self.question.get_info()
 
 	
 	def pos_feature_vec(self):
@@ -48,7 +49,7 @@ class FinalFeatureExtractor():
 		
 		#question level features for correctness model 
 		u_FE = UserFeatureExtractor()
-		question.get_info()
+		#question.get_info()
 		category = question.category
 		u_FE.user_category_correctness_ratio(category)
 		u_FE.user_category_avg_buzz(category)
