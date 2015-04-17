@@ -1,10 +1,9 @@
 import sys
 sys.path.insert(0, '../')
 
-import numpy as np
+from collections import defaultdict
 from csv import DictReader
-from UserModel import User
-from Features import FeatureExtractor
+from FeatureExtractor.final_feature_extractor import FinalFeatureExtractor
 
 folder_path = "../../data"
 
