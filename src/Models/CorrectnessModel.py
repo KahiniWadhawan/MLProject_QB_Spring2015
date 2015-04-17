@@ -6,8 +6,8 @@ class CorrectnessModel:
 	def __init__(self,classifier=SGDClassifier(loss='log',penalty='l2',shuffle=True)):
 		self.clf = classifier
 
-	def fit(self,features,labels):
-		self.clf.fit(features,labels)
+	def fit(self,X,Y):
+		self.clf.fit(X,Y)
 
 	def predict(self,X,pos):
 		"""

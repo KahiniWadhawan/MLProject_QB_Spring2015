@@ -38,14 +38,14 @@ class PositionModel:
 
 		self.clf.fit(Xs,Ys)
 
-	def predict(self,features):
+	def predict(self,X):
 		"""
 		This method returns the index of label with the highest confidence
 		(index = word_position).
 		So when using this method, fix the pair of question_id and user_id,
 		otherwise this method returns meaningless result.
 		"""
-		labels = self.clf.decision_function(features)
+		labels = self.clf.decision_function(X)
 		print labels
 		return list(labels).index(max(labels))
 
@@ -61,6 +61,10 @@ if __name__ == "__main__":
 				
 	Y = {(1,1):-1,(5,8):2}
 	pos.fit(X,Y)
+
+	print pos.predict([[4,5,2],
+				 	   [7,1,1],
+				 	   [8,8,4]])
 
 
 

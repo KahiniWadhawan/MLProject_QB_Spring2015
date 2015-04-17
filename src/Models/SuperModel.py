@@ -1,5 +1,3 @@
-import numpy as np
-from sklearn.linear_model import SGDClassifier
 from CorrectnessModel import CorrectnessModel
 from PositionModel import PositionModel
 
@@ -21,13 +19,22 @@ class SuperModel:
 		"""
 		self.correctness.fit(X,Y)
 
-	def fit_pos(self,X,Y):
+	def fit_pos(self,X_dict,Y_dict):
 		"""
-		X: feature vectors. This may be WORD level. The index of the feature vectors should 
-		    correspond to word_position. 
-		Y: labels. Elements are all 1s after the position of buzzing. (e.g. [0,0,0,1,1...])
+		input:
+			X_dict:   a dictionary whose key is a tuple of (q_id,user_id) and value is
+					  a matrix of word level training data
+					  Example:
+					    (q_id = 1, user_id = 3) -> [[1,1,2], (word_position = 1)
+					    							[4,2,4], (word_position = 2)
+					    							[8,2,3]] (word_position = 3)
+			Y_dict:   a dictionary whose key is a tuple of (q_id,user_id) and value is
+					  position of buzzing.
+					  Example:
+					  	(q_id = 1, user_id = 3) -> -70
+
 		"""
-		self.position.fit(X,Y)
+		self.position.fit(X_dict,Y_dict)
 
 	def predict_correct(self,X,pos):
 		return self.correctness.predict(X,pos)
