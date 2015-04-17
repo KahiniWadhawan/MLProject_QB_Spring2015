@@ -11,6 +11,7 @@ from collections import defaultdict
 class QuestionFeatureExtractor():
     def __init__(self, qid):
         self.question = Question(qid)
+	self.question.get_info()
         self.qtext = self.question.text
         self.answer = self.question.answer
         self.category = self.question.category

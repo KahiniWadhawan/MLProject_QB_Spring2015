@@ -6,6 +6,8 @@ from user import User
 #from question import Question
 #from parent_feature_extractor import FeatureExtractor
 import sqlite3
+from collections import defaultdict
+
 
  
 #class UserFeatureExtractor(FeatureExtractor):

@@ -18,7 +18,7 @@ class Question:
  	def __init__(self,qid):
 
 		self.qid = qid
-		
+		#self.get_info()	
 	
 	def get_info(self):
 		"""This method will return info of question like 
@@ -27,7 +27,7 @@ class Question:
 		info = {}
 		qid = self.qid
 		
-		conn = sqlite3.connect('../../data/quizbowl_buzz.db')
+		conn = sqlite3.connect('../../../data/quizbowl_buzz.db')
 		cur = conn.cursor()
 		
 		query = "select text,answer,category,words from questions where id =? " 		
