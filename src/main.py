@@ -53,7 +53,7 @@ def XY_generator(train):
 			X_POS[(qid,user_id)].append(feat_vec)
 
 
-		X_CO = FE.co_feature_vec()
+		X_CO.append(FE.co_feature_vec())
 		
 		Y.append(ex["position"])  
 
