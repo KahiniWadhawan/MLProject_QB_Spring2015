@@ -17,7 +17,7 @@ class UserFeatureExtractor():
 
 
    def user_category_correctness_ratio(self,category):
-	conn = sqlite3.connect('../../../data/quizbowl_buzz.db')
+	conn = sqlite3.connect('../../data/quizbowl_buzz.db')
         cur = conn.cursor()
 	query = "select (sum(CASE WHEN position > 0 THEN 1.0 ELSE 0.0 END)/count(t.question)) as cor_ratio from questions q JOIN train t ON q.id = t.question where category = ? and user = ? order by cor_ratio DESC "
         c = cur.execute(query,(category,self.user_id))
@@ -30,7 +30,7 @@ class UserFeatureExtractor():
         
 
    def user_category_avg_buzz(self,category):
-	conn = sqlite3.connect('../../../data/quizbowl_buzz.db')
+	conn = sqlite3.connect('../../data/quizbowl_buzz.db')
         cur = conn.cursor()
 	query = "select avg(abs(position)) as avg_buzz from questions q JOIN train t ON q.id = t.question where category = ? and user = ? group by user order by avg_buzz DESC"
         c = cur.execute(query,(category,self.user_id))
