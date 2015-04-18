@@ -5,6 +5,7 @@ from collections import defaultdict
 from csv import DictReader
 from FeatureExtractor.final_feature_extractor import FinalFeatureExtractor
 import cPickle as pickle
+from Models.SuperModel import SuperModel
 
 
 folder_path = "../../data"
@@ -18,7 +19,7 @@ def data_import(path):
 	return list(DictReader(open(path,"r")))
 
 
-def XY_generator(train):
+def XY_generator(train_or_test,Y_flag=True):
 	"""
 	inputs: a user's id
 		    training set
@@ -31,19 +32,19 @@ def XY_generator(train):
 		
 		X_CO is conventional feature vec
 
-
 		Y, a list of answering positions  of a user 
 		    with respect to each question 
 		    Example -> ([60.21, 93.32, -56.89,...])
 
 	"""
+	
 	X_POS = defaultdict(list)
 	X_CO = defaultdict(list)
-	Y = defaultdict(int)
+	if Y_flag:Y = defaultdict(int)
 
 	count = 0 
 	FE = FinalFeatureExtractor()
-	for ex in train:
+	for ex in train_or_test:
 		count += 1
 		print "count :: ", count
 	        row_id = ex["id"]
@@ -59,26 +60,47 @@ def XY_generator(train):
 
 		X_CO[row_id] = FE.co_feature_vec()
 		
-		Y[row_id] = float(ex["position"])
+		if Y_flag:Y[row_id] = float(ex["position"])
+	
+	if Y_flag:
+		
+		return X_POS, X_CO, Y
+	else:
+		
+		return X_POS,X_CO
 
 
-	return X_POS, X_CO, Y
+
 
 
 if __name__ == "__main__":
+	train = data_import(folder_path+"/little_train.csv")
+	X_POS, X_CO, Y = XY_generator(train)
+	#with open('pos_feature_vec_dump.txt', 'wb') as fz:
+	#	pickle.dump(X_POS, fz)
+	#with open('co_feature_vec_dump.txt', 'wb') as f:
+	#	pickle.dump(X_CO, f)
+	#with open('y_dump.txt', 'wb') as fy:
+	#	pickle.dump(Y, fy)
 
-	train = data_import(folder_path+"/train.csv")
-	X_POS, X_CO, Y = XY_generator(train=train)
+	#with open('pos_feature_vec_dump.txt', 'rb') as f:
+ 	#	X_POS = pickle.load(f)
+ 	#with open('co_feature_vec_dump.txt', 'rb') as f:
+ 	#	X_CO = pickle.load(f)
+ 	#with open('y_dump.txt', 'rb') as f:
+ 	#	Y = pickle.load(f)
 
-	with open('pos_feature_vec_dump.txt', 'wb') as fz:
-		pickle.dump(X_POS, fz)
 
-	fz.close()
+ 	super_model = SuperModel()
+ 	super_model.fit_co(X_CO, Y)
+ 	super_model.fit_pos(X_POS, Y)
+
+ 	test = data_import(folder_path+"/test.csv")
+ 	X_POS_test,X_CO_test = XY_generator(test, Y_flag=False)
+
+ 	for ex_id in X_POS_test.keys():
+ 		print ex_id + "," + str(super_model.predict(X_CO_test, X_POS_test))
 
 
-	with open('co_feature_vec_dump.txt', 'wb') as f:
-		pickle.dump(X_CO, f)
-
-	f.close()
 
 

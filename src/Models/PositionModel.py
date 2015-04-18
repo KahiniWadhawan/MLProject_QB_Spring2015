@@ -1,3 +1,4 @@
+
 from sklearn.linear_model import SGDClassifier
 
 
@@ -32,7 +33,6 @@ class PositionModel:
 			len_question = len(X)
 
 			Y = Y_generator(len_question,abs(Y_dict[key]))
-			print Y
 			Xs += X
 			Ys += Y
 
@@ -46,7 +46,6 @@ class PositionModel:
 		otherwise this method returns meaningless result.
 		"""
 		labels = self.clf.decision_function(X)
-		print labels
 		return list(labels).index(max(labels))
 
 if __name__ == "__main__":
