@@ -8,7 +8,7 @@ from nltk import FreqDist
 from parent_feature_extractor import FeatureExtractor
 
 
-class QuestionFeatureExtractor(FeatureExtractor):
+class QuestionFeatureExtractor(object):
     def __init__(self, granularity = 'word'):
         self.granularity = granularity
         with open("sparse_mega_dict.txt", "r") as fp:

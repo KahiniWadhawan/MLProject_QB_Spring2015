@@ -18,9 +18,7 @@ class Question:
  	def __init__(self,qid):
 
 		self.qid = qid
-           self.get_info()
-		
-			
+	
 	def get_info(self):
 		"""This method will return info of question like 
 		text, answer, category and words as a dict."""
@@ -28,7 +26,6 @@ class Question:
 		info = {}
 		qid = self.qid
 		
-
 		conn = sqlite3.connect('../../data/quizbowl_buzz.db')
 		cur = conn.cursor()
 		
@@ -119,3 +116,5 @@ if __name__ == "__main__":
 
 	
 	
+
+

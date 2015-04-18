@@ -1,10 +1,15 @@
-import numpy as np
+import sys
+sys.path.insert(0, '../')
+
+from collections import defaultdict
 from csv import DictReader
+from FeatureExtractor.final_feature_extractor import FinalFeatureExtractor
+import cPickle as pickle
+from Models.SuperModel import SuperModel
 
-from UserModel import User
-from Features import FeatureExtractor
 
-folder_path = "../data"
+folder_path = "../../data"
+
 
 def data_import(path):
 	"""
@@ -13,84 +18,89 @@ def data_import(path):
 	"""
 	return list(DictReader(open(path,"r")))
 
-def user_examples(user,train,questions):
-	"""
-	inputs: a user's id
-		   training set
-		   all questions
 
-	# below may change
-    output: a list of tuple consisting of a dictioanry of a question
-    		and a position at which the user answered the question.
-    		[(question1,position1),(question2,position2),....
-    		This gives us questions a specific user answered and positions
-	"""
-	positions = [] 
-	question_id = [] # storing question id
-
-	for t in train:
-		if t["user"] == user:
-			positions.append(float(t["position"]))
-			question_id.append(t["question"])
-
-	assert len(positions) > 0, "seems like there is no user named:%s"%user
-	qs = [] # storing an actual question object (dict)
-	
-	for q in questions:
-		if q["id"] in question_id:
-			qs.append(q)
-
-	return qs,positions
-
-def XY_generator(user,train,questions):
+def XY_generator(train_or_test,Y_flag=True):
 	"""
 	inputs: a user's id
 		    training set
 		    all questions
 
 	outputs:
-		X, a list of numpy arrays.
-			Example -> ([[1,2,3,4],
-						 [5,6,7,8],
-						 [9,10,11,12]])
+                X_POS is a dict:- key: (qid,uid), value: matrix 
+			of word level features for each entry in 
+			train & test 
+		
+		X_CO is conventional feature vec
+
 		Y, a list of answering positions  of a user 
 		    with respect to each question 
 		    Example -> ([60.21, 93.32, -56.89,...])
 
 	"""
-	X = []
-	Y = []
-	qs,Y = user_examples(user, train, questions)
+	
+	X_POS = defaultdict(list)
+	X_CO = defaultdict(list)
+	if Y_flag:Y = defaultdict(int)
 
-	FE = FeatureExtractor()
-	for q in qs:
-		FE(q) # feed this FeatureExtractor with a question data
-		X.append(FE.extract())
+	count = 0 
+	FE = FinalFeatureExtractor()
+	for ex in train_or_test:
+		count += 1
+		print "count :: ", count
+	        row_id = ex["id"]
+		user_id = ex["user"]
+		qid = ex["question"]
+		print "user id , qid :: ", user_id, qid
+		FE(user_id,qid)
 
-	return X,Y
+		X_word_level = FE.pos_feature_vec()
+	
+		for word_pos, feat_vec in X_word_level.iteritems():
+			X_POS[row_id].append(feat_vec)
+
+		X_CO[row_id] = FE.co_feature_vec()
+		
+		if Y_flag:Y[row_id] = float(ex["position"])
+	
+	if Y_flag:
+		
+		return X_POS, X_CO, Y
+	else:
+		
+		return X_POS,X_CO
+
+
+
+
 
 if __name__ == "__main__":
-	train = data_import(folder_path+"/train.csv")
-	questions = data_import(folder_path+"/questions.csv")
-	X,Y = XY_generator(user="4", train=train, questions=questions)
-	
-	Y_cls = map(np.sign,Y)
-	Y_reg = map(abs,Y)
+	train = data_import(folder_path+"/little_train.csv")
+	X_POS, X_CO, Y = XY_generator(train)
+	#with open('pos_feature_vec_dump.txt', 'wb') as fz:
+	#	pickle.dump(X_POS, fz)
+	#with open('co_feature_vec_dump.txt', 'wb') as f:
+	#	pickle.dump(X_CO, f)
+	#with open('y_dump.txt', 'wb') as fy:
+	#	pickle.dump(Y, fy)
 
-	user = User()
-	user.fit_classifier(X, Y_cls)
-	user.fit_regression(X, Y_reg)
+	#with open('pos_feature_vec_dump.txt', 'rb') as f:
+ 	#	X_POS = pickle.load(f)
+ 	#with open('co_feature_vec_dump.txt', 'rb') as f:
+ 	#	X_CO = pickle.load(f)
+ 	#with open('y_dump.txt', 'rb') as f:
+ 	#	Y = pickle.load(f)
 
-	# test code below 
-	FE = FeatureExtractor()
-	test = data_import(folder_path+"/test.csv")
-	qs_for_user = [t["question"] for t in test if t["user"] == "4"]
 
-	for q in questions:
-		if q["id"] in qs_for_user:
-			FE(q)
-			X = FE.extract()
-			print user.predict(X)
+ 	super_model = SuperModel()
+ 	super_model.fit_co(X_CO, Y)
+ 	super_model.fit_pos(X_POS, Y)
+
+ 	test = data_import(folder_path+"/test.csv")
+ 	X_POS_test,X_CO_test = XY_generator(test, Y_flag=False)
+
+ 	for ex_id in X_POS_test.keys():
+ 		print ex_id + "," + str(super_model.predict(X_CO_test, X_POS_test))
+
 
 
 
