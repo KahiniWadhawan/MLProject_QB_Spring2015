@@ -16,31 +16,30 @@ class Question:
 
 	"""
  	def __init__(self,qid):
-
-		self.qid = qid
+          self.qid = qid
 	
 	def get_info(self):
-		"""This method will return info of question like 
-		text, answer, category and words as a dict."""
-		
-		info = {}
-		qid = self.qid
-		
-		conn = sqlite3.connect('../../data/quizbowl_buzz.db')
-		cur = conn.cursor()
-		
-		query = "select text,answer,category,words from questions where id =? " 		
-		c = cur.execute(query,(qid,))
-		info = c.fetchall()
-		self.text = info[0][0]
-		self.answer = info[0][1]
-		self.category = info[0][2]
-		self.words = info[0][3]
+         """This method will return info of question like 
+         text, answer, category and words as a dict."""
+    		
+          info = {}
+          qid = self.qid
+          
+          conn = sqlite3.connect('../../data/quizbowl_buzz.db')
+          cur = conn.cursor()
+        		
+          query = "select text,answer,category,words from questions where id =? " 		
+          c = cur.execute(query,(qid,))
+          info = c.fetchall()
+          self.text = info[0][0]
+          self.answer = info[0][1]
+          self.category = info[0][2]
+          self.words = info[0][3]
+        
+          conn.close()		
 
-		conn.close()		
 
-
-	def tokenize(self,remove_stopwords=False):
+	def tokenize(self,remove_stopwords=False, **othertext):
 		"""
 		This method tokenizes the question text. It
 		can give all tokens, tokens w/o stopwords 
@@ -48,7 +47,10 @@ class Question:
 		This gives the same as self.words, if used with
 		remove_stopwords True 
  		"""
-		text = self.text
+           if othertext:
+               text = othertext['othertext']
+           else:
+               text = self.text
 		tokens = [] 
 
  		#text = text.translate(None).lower()
