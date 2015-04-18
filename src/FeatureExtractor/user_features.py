@@ -19,8 +19,8 @@ class UserFeatureExtractor():
    def user_category_correctness_ratio(self,category):
 	conn = sqlite3.connect('../../data/quizbowl_buzz.db')
         cur = conn.cursor()
-	query = "select (sum(CASE WHEN position > 0 THEN 1.0 ELSE 0.0 END)/count(t.question)) as cor_ratio from questions q JOIN train t ON q.id = t.question where usage != ? and category = ? and user = ? order by cor_ratio DESC "
-        c = cur.execute(query,("test",category,self.user_id))
+	query = "select (sum(CASE WHEN position > 0 THEN 1.0 ELSE 0.0 END)/count(t.question)) as cor_ratio from questions q JOIN train t ON q.id = t.question where category = ? and user = ? order by cor_ratio DESC "
+        c = cur.execute(query,(category,self.user_id))
         cor_ratio = c.fetchall()[0][0]
 	self.features["u_c_cor_ratio"] = cor_ratio 
 	conn.close()
