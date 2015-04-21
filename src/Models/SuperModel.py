@@ -36,8 +36,8 @@ class SuperModel:
 		"""
 		self.position.fit(X_dict,Y_dict)
 
-	def predict_correct(self,X,pos):
-		return self.correctness.predict(X,pos)
+	def predict_correct(self,X):
+		return self.correctness.predict(X)
 
 	def predict_pos(self,X):
 		return self.position.predict(X)
@@ -49,7 +49,7 @@ class SuperModel:
 		pos*sign, which is the final prediction for one example.
 		"""
 		pos = self.predict_pos(X_pos)
-		sign = self.predict_correct(X_co,pos)
+		sign = self.predict_correct(X_co)[0]
 		return pos*sign
 
 

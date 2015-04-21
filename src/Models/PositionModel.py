@@ -45,8 +45,12 @@ class PositionModel:
 		So when using this method, fix the pair of question_id and user_id,
 		otherwise this method returns meaningless result.
 		"""
+		# below for outputting the index with the highest probability
 		labels = self.clf.decision_function(X)
 		return list(labels).index(max(labels))
+
+		# below for outputting the index of first 1
+		#return self.clf.predict(X).index(1)
 
 if __name__ == "__main__":
 	pos = PositionModel()

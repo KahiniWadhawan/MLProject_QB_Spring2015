@@ -12,7 +12,7 @@ from nltk import FreqDist
 class QuestionFeatureExtractor(object):
     def __init__(self, granularity = 'word'):
         self.granularity = granularity
-        with open("sparse_mega_dict.txt", "r") as fp:
+        with open("../../data/sparse_mega_dict.txt", "r") as fp:
             self.sparse_mega_dict = pickle.load(fp)
     
     def __call__(self, qid):
@@ -28,6 +28,7 @@ class QuestionFeatureExtractor(object):
     def feat_vectorizer(self, dict_of_dict):
         for item in dict_of_dict:
             dict_of_dict[item] = dict_of_dict[item].values()
+        return dict_of_dict
 
     def caps_cumulative(self):
         '''assigns number of words[cumulative] starting with capital letters'''
@@ -61,7 +62,7 @@ class QuestionFeatureExtractor(object):
             for sent in self.sentences:
                 tokens = self.question.tokenize(othertext = sent)
                 for token in tokens:
-                    self.features[word_position].append({"s_pos": sent_position})
+                    self.features[word_position].update({"s_pos": sent_position})
                     word_position += 1.
                     
                 sent_position += 1.
@@ -145,7 +146,7 @@ class QuestionFeatureExtractor(object):
                 ner_dict.update({(lst[0], lst[1]['CharacterOffsetBegin']):lst[1]['NamedEntityTag']})
         
         word_position = 0.
-        ner_occurences_so_far =  {u'PERSON':0,u'LOCATION':0,u'ORGANIZATION':0}
+        ner_occurences_so_far =  {u'PERSON':0,u'LOCATION':0,u'ORGANIZATION':0, u'0':0}
         
         if self.granularity == 'word': 
             for word, char_pos in ner_dict:
