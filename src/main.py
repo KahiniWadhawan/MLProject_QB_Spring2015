@@ -3,8 +3,9 @@ sys.path.insert(0, '../')
 
 from collections import defaultdict
 from csv import DictReader
+import random
+
 from FeatureExtractor.final_feature_extractor import FinalFeatureExtractor
-import cPickle as pickle
 from Models.SuperModel import SuperModel
 
 
@@ -70,28 +71,32 @@ def XY_generator(train_or_test,Y_flag=True):
 		return X_POS,X_CO
 
 
-
-
-
-if __name__ == "__main__":
+def train_test_split(percentage=0.75):
 	train = data_import(folder_path+"/little_train.csv")
 	print "IMPORTED TRAIN DATA"
 	X_POS, X_CO, Y = XY_generator(train)
 	print "GENERATED FEATURE X_POS, X_CO AND Y"
+	ex_ids = X_POS.keys()
+	
+	train_ids = random.sample(ex_ids,int(len(train)*percentage))
+	test_ids = [i for i in ex_ids if i not in train_ids]
+	
+	train_X_POS = {i:X_POS[i] for i in train_ids}
+	train_X_CO = {i:X_CO[i] for i in train_ids}
+	train_Y = {i:Y[i] for i in train_ids}
 
-	#with open('pos_feature_vec_dump.txt', 'wb') as fz:
-	#	pickle.dump(X_POS, fz)
-	#with open('co_feature_vec_dump.txt', 'wb') as f:
-	#	pickle.dump(X_CO, f)
-	#with open('y_dump.txt', 'wb') as fy:
-	#	pickle.dump(Y, fy)
+	test_X_POS = {i:X_POS[i] for i in test_ids}
+	test_X_CO = {i:X_CO[i] for i in test_ids}
+	test_Y = {i:Y[i] for i in test_ids}
 
-	#with open('pos_feature_vec_dump.txt', 'rb') as f:
- 	#	X_POS = pickle.load(f)
- 	#with open('co_feature_vec_dump.txt', 'rb') as f:
- 	#	X_CO = pickle.load(f)
- 	#with open('y_dump.txt', 'rb') as f:
- 	#	Y = pickle.load(f)
+	return train_X_POS,train_X_CO,train_Y,test_X_POS,test_X_CO,test_Y
+	
+
+def main():
+	train = data_import(folder_path+"/little_train.csv")
+	print "IMPORTED TRAIN DATA"
+	X_POS, X_CO, Y = XY_generator(train)
+	print "GENERATED FEATURE X_POS, X_CO AND Y"
 
 
  	super_model = SuperModel()
@@ -105,6 +110,18 @@ if __name__ == "__main__":
 
  	for ex_id in X_POS_test.keys():
  		print ex_id + "," + str(super_model.predict(X_CO_test[ex_id], X_POS_test[ex_id]))
+
+
+
+
+
+
+if __name__ == "__main__":
+	#main()
+	train_X_POS,train_X_CO,train_Y,test_X_POS,test_X_CO,test_Y =  train_test_split()
+	print train_X_POS.keys()
+	print test_X_POS.keys()
+	
 
 
 
