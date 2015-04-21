@@ -41,10 +41,10 @@ class FinalFeatureExtractor():
 
 
 		if not q_FE.features == None:
-                X_word_level = q.FE.feat_vectorizer(q_FE.features)
-           else:
-                print "passed: ", self.question.qid
-                return None
+			X_word_level = q.FE.feat_vectorizer(q_FE.features)
+		else:
+			print "passed: ", self.question.qid
+			return None
 
 
 		return X_word_level	
@@ -84,8 +84,8 @@ if __name__ == "__main__":
 		print "hello :: ",qid, user_id 
 
 		X_word_level = FE.pos_feature_vec()
-           if X_word_level == None:
-               continue
+		if X_word_level == None:
+			continue
 		for word_pos, feat_vec in X_word_level.iteritems():
 			X_POS[(qid,user_id)].append(feat_vec)
 

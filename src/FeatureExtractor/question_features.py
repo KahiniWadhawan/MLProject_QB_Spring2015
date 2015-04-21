@@ -148,14 +148,14 @@ class QuestionFeatureExtractor(object):
                 ner_dict.update({(lst[0], lst[1]['CharacterOffsetBegin']):lst[1]['NamedEntityTag']})
         
         word_position = 0.
-        ner_occurences_so_far =  {u'PERSON':0,u'LOCATION':0,u'ORGANIZATION':0, u'0':0}
+        ner_occurences_so_far =  {u'PERSON':0,u'LOCATION':0,u'ORGANIZATION':0, u'O':0, u'NUMBER':0}
         
         if self.granularity == 'word': 
             for word, char_pos in ner_dict:
                 ner = ner_dict[(word, char_pos)]
 
                 ner_occurences_so_far[ner] += 1.
-                word_position = self.qtext.count(" ",0, char_pos) + 1.
+                word_position = self.qtext.count(" ",0, int(char_pos)) + 1.
                 self.features[word_position].update(ner_occurences_so_far)
                 
                 # restrict or allow only certain NER
@@ -173,7 +173,7 @@ class QuestionFeatureExtractor(object):
         if self.granularity == 'question':
             for word, char_pos in ner_dict:
                 ner_occurences_so_far[ner_dict[(word, char_pos)]] += 1.
-                word_position = self.qtext.count(" ",0, char_pos) + 1.
+                word_position = self.qtext.count(" ",0, int(char_pos)) + 1.
             
             ner = ner_dict[(word, char_pos)]
             # restrict or allow only certain NER
