@@ -91,7 +91,10 @@ class QuestionFeatureExtractor(object):
         u'JJ':0,u'JJR':0,u'JJS':0,u'LS':0,u'MD':0,u'NN':0,u'NNS':0,u'NNP':0,u'NNPS':0,\
         u'PDT':0,u'PRP':0,u'PRP$':0,u'RB':0,u'RBR':0,u'RBS':0,u'RP':0,u'SYM':0,\
         u'TO':0,u'UH':0,u'VB':0,u'VBD':0,u'VBG':0,u'VBN':0,u'VBP':0,u'VBZ':0,\
-        u'WDT':0,u'WP$':0,u'WRB':0}
+        u'WDT':0,u'WP$':0,u'WRB':0, u'POS': 0, u'WP': 0, u',': 0, u'!':0, u'"':0, \
+        u'#':0, u'$':0, u'%':0, u'&':0, u'\\':0, u'\'':0, u'(':0, u')':0, u'*':0,\
+        u'+':0, u'-':0, u'.':0, u'/':0, u':':0, u';':0, u'<':0, u'>':0, u'=':0, \
+        u'?': 0, u'@':0, u'[':0, u']':0, u'^':0, u'_':0, u'~':0, u'{':0, u'}':0, u'|':0}
         
         if self.granularity == 'word': 
             for word, char_pos in pos_dict:
