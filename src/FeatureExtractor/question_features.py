@@ -77,7 +77,10 @@ class QuestionFeatureExtractor(object):
             or total parts of speech for question granularity'''
         print self.qid
         pos_dict = OrderedDict()
-        print "self.qid:",self.qid
+        
+        if not self.sparse_mega_dict.has_key(self.qid):
+            self.features = None
+            return
         for sent_parse_dict in self.sparse_mega_dict[self.qid]['sentences']:
             for lst in sent_parse_dict['words']:
                 pos_dict.update({(lst[0], lst[1]['CharacterOffsetBegin']):lst[1]['PartOfSpeech']})
@@ -87,7 +90,10 @@ class QuestionFeatureExtractor(object):
         u'JJ':0,u'JJR':0,u'JJS':0,u'LS':0,u'MD':0,u'NN':0,u'NNS':0,u'NNP':0,u'NNPS':0,\
         u'PDT':0,u'PRP':0,u'PRP$':0,u'RB':0,u'RBR':0,u'RBS':0,u'RP':0,u'SYM':0,\
         u'TO':0,u'UH':0,u'VB':0,u'VBD':0,u'VBG':0,u'VBN':0,u'VBP':0,u'VBZ':0,\
-        u'WDT':0,u'WP$':0,u'WRB':0, u',':0,u'.':0}
+        u'WDT':0,u'WP$':0,u'WRB':0, u'POS': 0, u'WP': 0, u',': 0, u'!':0, u'"':0, \
+        u'#':0, u'$':0, u'%':0, u'&':0, u'\\':0, u'\'':0, u'(':0, u')':0, u'*':0,\
+        u'+':0, u'-':0, u'.':0, u'/':0, u':':0, u';':0, u'<':0, u'>':0, u'=':0, \
+        u'?': 0, u'@':0, u'[':0, u']':0, u'^':0, u'_':0, u'~':0, u'{':0, u'}':0, u'|':0}
         
         if self.granularity == 'word': 
             for word, char_pos in pos_dict:
@@ -111,7 +117,7 @@ class QuestionFeatureExtractor(object):
         if self.granularity == 'question':
             for word, char_pos in pos_dict:
                 pos_occurences_so_far[pos_dict[(word, char_pos)]] += 1.
-                word_position = self.qtext.count(" ",0, char_pos) + 1.
+                word_position = self.qtext.count(" ",0, int(char_pos)) + 1.
             
             pos = pos_dict[(word, char_pos)]
             # restrict or allow only certain POS
@@ -132,6 +138,11 @@ class QuestionFeatureExtractor(object):
             or total NER for question granularity'''
            
         ner_dict = OrderedDict()
+        
+        if not self.sparse_mega_dict.has_key(self.qid):
+            self.features = None
+            return
+            
         for sent_parse_dict in self.sparse_mega_dict[self.qid]['sentences']:
             for lst in sent_parse_dict['words']:
                 ner_dict.update({(lst[0], lst[1]['CharacterOffsetBegin']):lst[1]['NamedEntityTag']})
