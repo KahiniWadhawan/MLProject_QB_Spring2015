@@ -25,7 +25,7 @@ class Question:
         info = {}
         qid = self.qid
         conn = sqlite3.connect('../../data/quizbowl_buzz.db')
-        cur = conn.curso
+        cur = conn.cursor()
         query = "select text,answer,category,words from questions where id =? "
         c = cur.execute(query,(qid,))
         info = c.fetchall()
