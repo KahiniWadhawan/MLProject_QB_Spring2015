@@ -51,7 +51,10 @@ def XY_generator(train_or_test,Y_flag=True):
 		#print "count :: ", count
 		row_id = ex["id"]
 		user_id = ex["user"]
-		qid = ex["question"]
+		qid = int(ex["question"])
+		print "qid:",qid
+		#if (qid == "500") or (qid == 500):
+		#	continue 
 		#print "user id , qid :: ", user_id, qid
 		FE(user_id,qid)
 
@@ -104,6 +107,7 @@ def testing():
 
  	for ex_id in test_Y.keys():
  		predicted_Ys[ex_id] = super_model.predict(test_X_CO[ex_id],test_X_POS[ex_id])
+ 		print "predicted:",predicted_Ys[ex_id],"true:",test_Y[ex_id]
  		
  	V = Validation(test_Y,predicted_Ys)
  	print V.MSE()

@@ -36,6 +36,8 @@ class FinalFeatureExtractor():
 		q_FE(self.question.qid)
 		q_FE.caps_cumulative()
 		q_FE.sentence_position()
+		q_FE.part_of_speech()
+		q_FE.NER()
 
 				
 		X_word_level = q_FE.feat_vectorizer(q_FE.features)

@@ -1,4 +1,4 @@
-
+import numpy as np
 from sklearn.linear_model import SGDClassifier
 
 
@@ -46,11 +46,12 @@ class PositionModel:
 		otherwise this method returns meaningless result.
 		"""
 		# below for outputting the index with the highest probability
-		labels = self.clf.decision_function(X)
-		return list(labels).index(max(labels))
+		#labels = self.clf.decision_function(X)
+		#return list(labels).index(max(labels))
 
 		# below for outputting the index of first 1
-		#return self.clf.predict(X).index(1)
+		print self.clf.predict(X)
+		return np.argmax(self.clf.predict(X))
 
 if __name__ == "__main__":
 	pos = PositionModel()
