@@ -97,7 +97,7 @@ class QuestionFeatureExtractor(object):
             for word, char_pos in pos_dict:
                 pos = pos_dict[(word, char_pos)]
                 pos_occurences_so_far[pos] += 1.
-                word_position = self.qtext.count(" ",0, char_pos) + 1.
+                word_position = self.qtext.count(" ",0, int(char_pos)) + 1.
                 self.features[word_position].update(pos_occurences_so_far)
                 
                 # restrict or allow only certain NER
@@ -115,7 +115,7 @@ class QuestionFeatureExtractor(object):
         if self.granularity == 'question':
             for word, char_pos in pos_dict:
                 pos_occurences_so_far[pos_dict[(word, char_pos)]] += 1.
-                word_position = self.qtext.count(" ",0, char_pos) + 1.
+                word_position = self.qtext.count(" ",0, int(char_pos)) + 1.
             
             pos = pos_dict[(word, char_pos)]
             # restrict or allow only certain POS
