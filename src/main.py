@@ -7,6 +7,7 @@ import random
 
 from FeatureExtractor.final_feature_extractor import FinalFeatureExtractor
 from Models.SuperModel import SuperModel
+from Validation import Validation
 
 
 folder_path = "../../data"
@@ -48,7 +49,7 @@ def XY_generator(train_or_test,Y_flag=True):
 	for ex in train_or_test:
 		count += 1
 		#print "count :: ", count
-	        row_id = ex["id"]
+		row_id = ex["id"]
 		user_id = ex["user"]
 		qid = ex["question"]
 		#print "user id , qid :: ", user_id, qid
@@ -90,7 +91,26 @@ def train_test_split(percentage=0.75):
 	test_Y = {i:Y[i] for i in test_ids}
 
 	return train_X_POS,train_X_CO,train_Y,test_X_POS,test_X_CO,test_Y
+
+
+def testing():
+	train_X_POS,train_X_CO,train_Y,test_X_POS,test_X_CO,test_Y =  train_test_split()
 	
+	super_model = SuperModel()
+	super_model.fit_co(train_X_CO, train_Y)
+ 	super_model.fit_pos(train_X_POS, train_Y)
+
+ 	predicted_Ys = {}
+
+ 	for ex_id in test_Y.keys():
+ 		predicted_Ys[ex_id] = super_model.predict(test_X_CO[ex_id],test_X_POS[ex_id])
+ 		
+ 	V = Validation(test_Y,predicted_Ys)
+ 	print V.MSE()
+ 	print V.worst_ten()
+
+
+
 
 def main():
 	train = data_import(folder_path+"/little_train.csv")
@@ -108,6 +128,8 @@ def main():
  	X_POS_test,X_CO_test = XY_generator(test, Y_flag=False)
  	print "GENERATED FEATURE X_POS AND X_CO"
 
+ 	print "------"*10
+ 	print "id,position"
  	for ex_id in X_POS_test.keys():
  		print ex_id + "," + str(super_model.predict(X_CO_test[ex_id], X_POS_test[ex_id]))
 
@@ -118,9 +140,9 @@ def main():
 
 if __name__ == "__main__":
 	#main()
-	train_X_POS,train_X_CO,train_Y,test_X_POS,test_X_CO,test_Y =  train_test_split()
-	print train_X_POS.keys()
-	print test_X_POS.keys()
+	testing()
+	
+	
 	
 
 

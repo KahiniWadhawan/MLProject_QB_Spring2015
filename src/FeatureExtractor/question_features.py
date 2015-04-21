@@ -12,8 +12,8 @@ from nltk import FreqDist
 class QuestionFeatureExtractor(object):
     def __init__(self, granularity = 'word'):
         self.granularity = granularity
-        #with open("sparse_mega_dict.txt", "r") as fp:
-        #    self.sparse_mega_dict = pickle.load(fp)
+        with open("../../data/sparse_mega_dict.txt", "r") as fp:
+            self.sparse_mega_dict = pickle.load(fp)
     
     def __call__(self, qid):
         self.question = Question(qid)
