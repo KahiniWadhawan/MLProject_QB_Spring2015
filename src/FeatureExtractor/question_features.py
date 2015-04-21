@@ -136,7 +136,7 @@ class QuestionFeatureExtractor(object):
                 ner_dict.update({(lst[0], lst[1]['CharacterOffsetBegin']):lst[1]['NamedEntityTag']})
         
         word_position = 0.
-        ner_occurences_so_far =  {u'PERSON':0,u'LOCATION':0,u'ORGANIZATION':0}
+        ner_occurences_so_far =  {u'PERSON':0,u'LOCATION':0,u'ORGANIZATION':0, u'0':0}
         
         if self.granularity == 'word': 
             for word, char_pos in ner_dict:
