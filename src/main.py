@@ -104,7 +104,7 @@ if __name__ == "__main__":
  	print "GENERATED FEATURE X_POS AND X_CO"
 
  	for ex_id in X_POS_test.keys():
- 		print ex_id + "," + str(super_model.predict(X_CO_test, X_POS_test))
+ 		print ex_id + "," + str(super_model.predict(X_CO_test[ex_id], X_POS_test[ex_id]))
 
 
 

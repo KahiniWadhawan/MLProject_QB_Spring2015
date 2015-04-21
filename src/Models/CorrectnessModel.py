@@ -1,4 +1,5 @@
 from sklearn.linear_model import SGDClassifier
+import numpy as np
 
 class CorrectnessModel:
 	
@@ -13,11 +14,11 @@ class CorrectnessModel:
 			if X_dict[k][0] == None:
 				print "id:"+str(k),X_dict[k]
 			X.append(X_dict[k])
-			Y.append(Y_dict[k])
+			Y.append(np.sign(Y_dict[k]))
 
 		self.clf.fit(X,Y)
 
-	def predict(self,X_dict):
+	def predict(self,X):
 		"""
 		This is kind of tricky one. In the training process, the classifier
 		recerives the position values. But in the test process they are not
@@ -25,7 +26,7 @@ class CorrectnessModel:
 		Model as input and combine it to the other features.
 		X_dict should be like: {"64":[1,3,4,30,...]}
 		"""
-		return self.clf.predict(X_dict.values())
+		return self.clf.predict(X)
 
 if __name__ == "__main__":
 	X = {1:[1,3,4],
