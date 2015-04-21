@@ -25,6 +25,9 @@ class QuestionFeatureExtractor(object):
         self.tokens = self.question.tokenize()
         self.features = defaultdict(dict)
         
+    def feat_vectorizer(self, dict_of_dict):
+        for item in dict_of_dict:
+            dict_of_dict[item] = dict_of_dict[item].values()
 
     def caps_cumulative(self):
         '''assigns number of words[cumulative] starting with capital letters'''
@@ -78,12 +81,15 @@ class QuestionFeatureExtractor(object):
                 pos_dict.update({(lst[0], lst[1]['CharacterOffsetBegin']):lst[1]['PartOfSpeech']})
         
         word_position = 0.
-        pos_occurences_so_far = defaultdict(FreqDist)
+        pos_occurences_so_far = {u'CC':0,u'CD':0,u'DT':0,u'EX':0,u'FW':0,u'IN':0,\
+        u'JJ':0,u'JJR':0,u'JJS':0,u'LS':0,u'MD':0,u'NN':0,u'NNS':0,u'NNP':0,u'NNPS':0,\
+        u'PDT':0,u'PRP':0,u'PRP$':0,u'RB':0,u'RBR':0,u'RBS':0,u'RP':0,u'SYM':0,\
+        u'TO':0,u'UH':0,u'VB':0,u'VBD':0,u'VBG':0,u'VBN':0,u'VBP':0,u'VBZ':0,\
+        u'WDT':0,u'WP$':0,u'WRB':0}
         
         if self.granularity == 'word': 
             for word, char_pos in pos_dict:
                 pos = pos_dict[(word, char_pos)]
-   
                 pos_occurences_so_far[pos] += 1.
                 word_position = self.qtext.count(" ",0, char_pos) + 1.
                 self.features[word_position].update(pos_occurences_so_far)
@@ -129,7 +135,7 @@ class QuestionFeatureExtractor(object):
                 ner_dict.update({(lst[0], lst[1]['CharacterOffsetBegin']):lst[1]['NamedEntityTag']})
         
         word_position = 0.
-        ner_occurences_so_far = defaultdict(FreqDist)
+        ner_occurences_so_far =  {u'PERSON':0,u'LOCATION':0,u'ORGANIZATION':0}
         
         if self.granularity == 'word': 
             for word, char_pos in ner_dict:

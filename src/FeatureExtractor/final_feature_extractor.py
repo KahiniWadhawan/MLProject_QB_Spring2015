@@ -37,7 +37,7 @@ class FinalFeatureExtractor():
 		q_FE.sentence_position()
 
 				
-		X_word_level = q_FE.features
+		X_word_level = q.FE.feat_vectorizer(q_FE.features)
 
 		return X_word_level	
 		
