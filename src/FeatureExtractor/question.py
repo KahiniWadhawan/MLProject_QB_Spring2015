@@ -17,13 +17,6 @@ class Question:
     """
     def __init__(self,qid):
         self.qid = qid
-
-    def get_info(self):
-        """This method will return info of question like
-        text, answer, category and words as a dict."""
-
-        info = {}
-        qid = self.qid
         conn = sqlite3.connect('../../data/quizbowl_buzz.db')
         cur = conn.cursor()
         query = "select text,answer,category,words from questions where id =? "
@@ -48,21 +41,22 @@ class Question:
     	    text = othertext['othertext']
     	else:
     	    text = self.text
-    	    tokens = []
-    	    #text = text.translate(None).lower()
-    	    text = re.sub('[%s]' % re.escape(string.punctuation), '', text.lower())
-    	    temp_tokens = text.split()
-    	    #remove stopwords
-    	    if remove_stopwords == True:
-    	        for word in temp_tokens:
-    	            if word in stopwords:
-    	                pass
-    	            else:
-    	                tokens.append(word)
-    	    else:
-    	        tokens = temp_tokens
-    	    return tokens
-	
+    	    
+    	tokens = []
+    	#text = text.translate(None).lower()
+    	text = re.sub('[%s]' % re.escape(string.punctuation), '', text.lower())
+    	temp_tokens = text.split()
+    	#remove stopwords
+    	if remove_stopwords == True:
+    	    for word in temp_tokens:
+    	        if word in stopwords:
+    	            pass
+    	        else:
+    	            tokens.append(word)
+    	else:
+    	    tokens = temp_tokens
+    	return tokens
+
     def get_sentences(self):
         """
         This method gives out list of sentences from

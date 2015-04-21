@@ -23,7 +23,7 @@ class FinalFeatureExtractor():
 	
 		self.user = User(user_id)
 	        self.question = Question(qid)
-		self.question.get_info()
+		
 
 	
 	def pos_feature_vec(self):
@@ -32,12 +32,13 @@ class FinalFeatureExtractor():
 		gives two X feature vec """	
 		
 		#word - level features for position model	
-		q_FE = QuestionFeatureExtractor(self.question.qid)
+		q_FE = QuestionFeatureExtractor()
+		q_FE(self.question.qid)
 		q_FE.caps_cumulative()
 		q_FE.sentence_position()
 
 				
-		X_word_level = q.FE.feat_vectorizer(q_FE.features)
+		X_word_level = q_FE.feat_vectorizer(q_FE.features)
 
 		return X_word_level	
 		

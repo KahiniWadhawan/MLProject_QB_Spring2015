@@ -46,11 +46,11 @@ def XY_generator(train_or_test,Y_flag=True):
 	FE = FinalFeatureExtractor()
 	for ex in train_or_test:
 		count += 1
-		print "count :: ", count
+		#print "count :: ", count
 	        row_id = ex["id"]
 		user_id = ex["user"]
 		qid = ex["question"]
-		print "user id , qid :: ", user_id, qid
+		#print "user id , qid :: ", user_id, qid
 		FE(user_id,qid)
 
 		X_word_level = FE.pos_feature_vec()
@@ -75,7 +75,10 @@ def XY_generator(train_or_test,Y_flag=True):
 
 if __name__ == "__main__":
 	train = data_import(folder_path+"/little_train.csv")
+	print "IMPORTED TRAIN DATA"
 	X_POS, X_CO, Y = XY_generator(train)
+	print "GENERATED FEATURE X_POS, X_CO AND Y"
+
 	#with open('pos_feature_vec_dump.txt', 'wb') as fz:
 	#	pickle.dump(X_POS, fz)
 	#with open('co_feature_vec_dump.txt', 'wb') as f:
@@ -95,8 +98,10 @@ if __name__ == "__main__":
  	super_model.fit_co(X_CO, Y)
  	super_model.fit_pos(X_POS, Y)
 
- 	test = data_import(folder_path+"/test.csv")
+ 	test = data_import(folder_path+"/little_test.csv")
+ 	print "IMPORTED TEST DATA"
  	X_POS_test,X_CO_test = XY_generator(test, Y_flag=False)
+ 	print "GENERATED FEATURE X_POS AND X_CO"
 
  	for ex_id in X_POS_test.keys():
  		print ex_id + "," + str(super_model.predict(X_CO_test, X_POS_test))
