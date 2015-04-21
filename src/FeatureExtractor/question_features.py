@@ -76,6 +76,11 @@ class QuestionFeatureExtractor(object):
             or total parts of speech for question granularity'''
            
         pos_dict = OrderedDict()
+        
+        if not self.sparse_mega_dict.has_key(self.qid):
+            self.features = None
+            return
+            
         for sent_parse_dict in self.sparse_mega_dict[self.qid]['sentences']:
             for lst in sent_parse_dict['words']:
                 pos_dict.update({(lst[0], lst[1]['CharacterOffsetBegin']):lst[1]['PartOfSpeech']})
@@ -130,6 +135,11 @@ class QuestionFeatureExtractor(object):
             or total NER for question granularity'''
            
         ner_dict = OrderedDict()
+        
+        if not self.sparse_mega_dict.has_key(self.qid):
+            self.features = None
+            return
+            
         for sent_parse_dict in self.sparse_mega_dict[self.qid]['sentences']:
             for lst in sent_parse_dict['words']:
                 ner_dict.update({(lst[0], lst[1]['CharacterOffsetBegin']):lst[1]['NamedEntityTag']})
