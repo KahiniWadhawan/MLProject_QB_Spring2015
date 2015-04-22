@@ -41,7 +41,7 @@ class FinalFeatureExtractor():
 
 
 		if not q_FE.features == None:
-			X_word_level = q.FE.feat_vectorizer(q_FE.features)
+			X_word_level = q_FE.feat_vectorizer(q_FE.features)
 		else:
 			print "passed: ", self.question.qid
 			return None
