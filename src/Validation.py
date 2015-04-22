@@ -1,4 +1,5 @@
 from __future__ import division
+import math
 
 class Validation:
 
@@ -11,8 +12,8 @@ class Validation:
 		self.true = true_Ys
 		self.predicted = predicted_Ys
 
-	def MSE(self):
-		""" Mean Square Error"""
+	def RMSE(self):
+		""" Root Mean Square Error"""
 
 		p = [] # predicted values
 		t = [] # true values
@@ -21,7 +22,7 @@ class Validation:
 			p.append(self.predicted[k])
 			t.append(self.true[k])
 
-		return sum([(y1-y2)**2 for (y1,y2) in zip(p,t)])/len(t)
+		return math.sqrt(sum([(y1-y2)**2 for (y1,y2) in zip(p,t)])/len(t))
 
 	def worst_ten(self):
 		return sorted([(k,(self.predicted[k]-self.true[k])**2)for k in self.true.keys()],
