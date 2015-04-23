@@ -12,17 +12,17 @@ from nltk import FreqDist
 class QuestionFeatureExtractor(object):
     def __init__(self, granularity = 'word'):
         self.granularity = granularity
-        with open("../../data/sparse_mega_dict.txt", "r") as fp:
+        with open("../../data/sparse_mega_dict2.txt", "r") as fp:
             self.sparse_mega_dict = pickle.load(fp)
     
     def __call__(self, qid):
         self.question = Question(qid)
         self.qid = int(qid)
         self.qtext = self.question.text
-        self.answer = self.question.answer
-        self.category = self.question.category
-        self.sentences = self.question.get_sentences()
-        self.tokens = self.question.tokenize()
+        #self.answer = self.question.answer
+        #self.category = self.question.category
+        #self.sentences = self.question.get_sentences()
+        #self.tokens = self.question.tokenize()
         self.features = defaultdict(dict)
         
     def feat_vectorizer(self, dict_of_dict):
@@ -72,18 +72,21 @@ class QuestionFeatureExtractor(object):
       
   
     
-    def part_of_speech(self, allow = 'all', restrict = None):
+    def sparse_features(self):
         '''builds cumulative parts of speech feature for word granularity
             or total parts of speech for question granularity'''
         print self.qid
-        pos_dict = OrderedDict()
+        sparse_dict = OrderedDict()
         
         if not self.sparse_mega_dict.has_key(self.qid):
             self.features = None
             return
+            
+            
         for sent_parse_dict in self.sparse_mega_dict[self.qid]['sentences']:
             for lst in sent_parse_dict['words']:
-                pos_dict.update({(lst[0], lst[1]['CharacterOffsetBegin']):lst[1]['PartOfSpeech']})
+                sparse_dict.update({(lst[0], lst[1]['CharacterOffsetBegin']):(lst[1]['PartOfSpeech'], lst[1]['NamedEntityTag']) })
+
         
         word_position = 0.
         pos_occurences_so_far = {u'CC':0,u'CD':0,u'DT':0,u'EX':0,u'FW':0,u'IN':0,\
@@ -93,47 +96,46 @@ class QuestionFeatureExtractor(object):
         u'WDT':0,u'WP$':0,u'WRB':0, u'POS': 0, u'WP': 0, u',': 0, u'!':0, u'"':0, \
         u'#':0, u'$':0, u'%':0, u'&':0, u'\\':0, u'\'':0, u'(':0, u')':0, u'*':0,\
         u'+':0, u'-':0, u'.':0, u'/':0, u':':0, u';':0, u'<':0, u'>':0, u'=':0, \
-        u'?': 0, u'@':0, u'[':0, u']':0, u'^':0, u'_':0, u'~':0, u'{':0, u'}':0, u'|':0}
+        u'?': 0, u'@':0, u'[':0, u']':0, u'^':0, u'_':0, u'~':0, u'{':0, u'}':0, u'|':0,\
+        u'``':0, u"''": 0, u'-LRB-':0, u'O':0}
+        
+        ner_occurences_so_far =  { u'PERSON':0,u'LOCATION':0,u'ORGANIZATION':0, u'MISC':0,\
+        u'DATE': 0, u'TIME':0, 'DURATION':0, u'SET':0, \
+        u'MONEY':0, 'PERCENT':0, u'NUMBER':0, u'ORDINAL':0,\
+        u'O':0 }
         
         if self.granularity == 'word': 
-            for word, char_pos in pos_dict:
-                pos = pos_dict[(word, char_pos)]
+            for word, char_pos in sparse_dict:
+                pos, ner = sparse_dict[(word, char_pos)]
+                if not pos_occurences_so_far.has_key(pos):
+                    pos = u'O'
+                if not ner_occurences_so_far.has_key(ner):
+                    ner = u'O'
                 pos_occurences_so_far[pos] += 1.
-                word_position = self.qtext.count(" ",0, int(char_pos)) + 1.
+                ner_occurences_so_far[ner] += 1.
+                word_position = self.qtext.count(" ",0, int(char_pos))
                 self.features[word_position].update(pos_occurences_so_far)
-                
-                # restrict or allow only certain NER
-                if restrict != None:
-                    for item in restrict:
-                        self.features[word_position].pop(item)
-                if allow != 'all':
-                    pos_occurences_allowed = {}
-                    for item in allow:
-                        pos_occurences_allowed[item] = pos_occurences_so_far[item]
-                    pos_occurences_so_far = pos_occurences_allowed
-                    self.features[word_position] = pos_occurences_so_far
-
+                self.features[word_position].update(ner_occurences_so_far)
+            print self.features
+            print "\n\n\n"
                 
         if self.granularity == 'question':
-            for word, char_pos in pos_dict:
-                pos_occurences_so_far[pos_dict[(word, char_pos)]] += 1.
-                word_position = self.qtext.count(" ",0, int(char_pos)) + 1.
+            for word, char_pos in sparse_dict:
+                pos, ner = sparse_dict[(word, char_pos)]
+                if not pos_occurences_so_far.has_key(pos):
+                    pos = u'O'
+                if not ner_occurences_so_far.has_key(ner):
+                    ner = u'O'
+                pos_occurences_so_far[pos] += 1.
+                ner_occurences_so_far[ner] += 1.
+
             
-            pos = pos_dict[(word, char_pos)]
-            # restrict or allow only certain POS
-            if restrict != None:
-                for item in restrict:
-                    pos_occurences_so_far.pop(item)
-            if allow != 'all':
-                pos_occurences_allowed = {}
-                for item in allow:
-                    pos_occurences_allowed[item] = pos_occurences_so_far[item]
-                pos_occurences_so_far = pos_occurences_allowed
             self.features[self.qid].update(pos_occurences_so_far)
+            self.features[self.qid].update(ner_occurences_so_far)
+            
 
 
-
-    def NER(self, allow = 'all', restrict = [u'O']):
+    def NER(self, allow = 'all', restrict = None):
         '''builds cumulative NER feature for word granularity
             or total NER for question granularity'''
            
@@ -148,8 +150,10 @@ class QuestionFeatureExtractor(object):
                 ner_dict.update({(lst[0], lst[1]['CharacterOffsetBegin']):lst[1]['NamedEntityTag']})
         
         word_position = 0.
-        ner_occurences_so_far =  {u'PERSON':0,u'LOCATION':0,u'ORGANIZATION':0, u'O':0, u'NUMBER':0,
-                                  u'MISC':0}
+        ner_occurences_so_far =  {u'PERSON':0,u'LOCATION':0,u'ORGANIZATION':0, u'MISC':0,\
+                                  u'DATE': 0, u'TIME':0, 'DURATION':0, u'SET':0, \
+                                  u'MONEY':0, 'PERCENT':0, u'NUMBER':0, u'ORDINAL':0,\
+                                  u'O':0}
         
         if self.granularity == 'word': 
             for word, char_pos in ner_dict:
