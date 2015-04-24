@@ -1,11 +1,54 @@
 import numpy as np
 from csv import DictReader
+from nltk.tag import pos_tag
+from collections import defaultdict
 
 from UserModel import User
 from Features import FeatureExtractor
 
 folder_path = "../data"
 
+
+class Questions:
+
+	def __init__(self,questions):
+		self.Qs = questions
+
+	def __iter__(self):
+		return self.Qs
+
+	def vocabulary_nouns(self):
+		vocab_noun = set()
+		i = 0
+		for q in self.Qs:
+			print i
+			vocab = eval(q["words"]).values()
+			tagged = pos_tag(vocab)
+			propernouns = [word for word,pos in tagged if pos == 'NNP']
+			vocab_noun = vocab_noun.union(set(propernouns))
+			i += 1
+		return list(vocab_noun)
+
+	def vocabulary_no_stopwords(self):
+		vocab = set()
+		i = 0
+		for q in self.Qs:
+			print i
+			vocab = vocab.union(set(eval(q["words"]).values()))
+			i += 1
+		return list(vocab)
+
+def cluster_import(path):
+
+	clusters = defaultdict(list)
+	user_cluster = defaultdict(int)
+
+	with open(path,"r") as f:
+		for e in f.readlines():
+			e = map(int,e.split(","))
+			clusters[e[1]].append(e[0])
+			user_cluster[e[0]] = e[1]
+	return clusters,user_cluster
 
 
 def data_import(path):
@@ -30,7 +73,7 @@ def user_examples(user,train,questions):
 
 	pos_qid = []
 	for t in train:
-		if t["user"] == user:
+		if t["user"] == str(user):
 			pos_qid.append((float(t["position"]),t["question"]))
 
 	assert len(pos_qid) > 0, "seems like there is no user named:%s"%user
@@ -63,8 +106,7 @@ def XY_generator(user,train,questions):
 	X = []
 	Y = []
 	qs,Y = user_examples(user, train, questions)
-	#print "qs:",len(qs)
-	#print "Y:",len(Y)
+
 	FE = FeatureExtractor()
 	for q in qs:
 		FE(q) # feed this FeatureExtractor with a question data
@@ -105,39 +147,65 @@ def ensemble(UserGroup,X):
 	return most_common(signs)*np.average(positions)
 
 
-
-
-
 if __name__ == "__main__":
 	train = data_import(folder_path+"/train.csv")
 	questions = data_import(folder_path+"/questions.csv")
 
-	user_ids = users(train)
-	UserGroup = {}
-	# user 0,100
-	#X,Y = XY_generator("100",train,questions)
+	clusters,user_cluster = cluster_import("user_cluster.txt")
 
 	
 	
-	for u in user_ids:
-		X,Y = XY_generator(u,train,questions)
-		Y_cls = map(np.sign,Y)
-		Y_reg = map(abs,Y)
-		user = User()
-		user.fit_classifier(X, Y_cls)
-		user.fit_regression(X, Y_reg)
-		UserGroup[u] = user
+	"""
+	Q = Questions(questions)
+	print Q.vocabulary_no_stopwords()
+	print len(Q.vocabulary_no_stopwords())
+	nouns = Q.vocabulary_no_stopwords()
+	with open("words.txt","w") as f:
+		for n in nouns:
+			f.write(n+"\n")
+	"""
+	
+	user_ids = users(train)
+	UserGroup = {}
+
+	
+	for c in clusters.keys():
+		user_c = User()
+		Xs = []
+		Y_cls_s = []
+		Y_reg_s = []
+
+		for u in clusters[c]:
+			X,Y = XY_generator(u,train,questions)
+			Y_cls = map(np.sign,Y)
+			Y_reg = map(abs,Y)
+			Xs += X
+			Y_cls_s += Y_cls
+			Y_reg_s += Y_reg
+
+
+		user_c.fit_classifier(Xs, Y_cls_s)
+		user_c.fit_regression(Xs, Y_reg_s)
+		UserGroup[c] = user_c
+
+
+	#for u in user_ids:
+	#	X,Y = XY_generator(u,train,questions,vocab)
+	#	Y_cls = map(np.sign,Y)
+	#	Y_reg = map(abs,Y)
+	#	user = User()
+	#	user.fit_classifier(X, Y_cls)
+	#	user.fit_regression(X, Y_reg)
+	#	UserGroup[u] = user
 
 	test = data_import(folder_path+"/test.csv")
 	for t in test:
-		if t["user"] in UserGroup.keys():
-			result = UserGroup[t["user"]].predict(X_generator(t["question"], questions))
+		if t["user"] in user_cluster.keys():
+			result = UserGroup[user_cluster[t["user"]]].predict(X_generator(t["question"], questions))
 			print t["id"] +","+ str(result)
 		else:
 			result = ensemble(UserGroup,X_generator(t["question"], questions))
 			print t["id"] +","+ str(result)
-
 	
-
 
 

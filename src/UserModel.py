@@ -30,12 +30,12 @@ class User:
 			sign = self.Y
 		else:
 			sign = self.clf.predict(X)
-	
+		
 		if sign[0] > 0:
-			sign = ""
+			sign = 1.0
 		else:
-			sign = "-"
+			sign = -1.0
 		pos = self.reg.predict(X)
 
-		return str(sign)+str(pos)
+		return sign*pos
 
