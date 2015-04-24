@@ -19,6 +19,9 @@ class Question(object):
         self.conn = sqlite3.connect('../../../data/quizbowl_buzz.db')
         self.cur = self.conn.cursor()
         self.qid = qid
+        conn = sqlite3.connect('../../../data/quizbowl_buzz.db')
+        cur = conn.cursor()
+
         query = "select text,answer,category,words from questions where id =? "
         c = self.cur.execute(query,(qid,))
         info = c.fetchall()
