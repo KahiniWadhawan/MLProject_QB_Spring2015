@@ -1,4 +1,4 @@
-
+import numpy as np
 from sklearn.linear_model import SGDClassifier
 
 
@@ -45,8 +45,13 @@ class PositionModel:
 		So when using this method, fix the pair of question_id and user_id,
 		otherwise this method returns meaningless result.
 		"""
-		labels = self.clf.decision_function(X)
-		return list(labels).index(max(labels))
+		# below for outputting the index with the highest probability
+		#labels = self.clf.decision_function(X)
+		#return list(labels).index(max(labels))
+
+		# below for outputting the index of first 1
+		print self.clf.predict(X)
+		return np.argmax(self.clf.predict(X))
 
 if __name__ == "__main__":
 	pos = PositionModel()
