@@ -22,7 +22,7 @@ class CategoryFeatureExtractor():
 	        c = cur.execute(query,(self.question.qid,))
         	res = c.fetchall()[0]
 		#print list(res)
-		self.features["cat_subcat"] = list(res) 
+		self.features["cat_subcat"] = list(res)[1:] 
 		conn.close()
 
 
@@ -30,6 +30,6 @@ class CategoryFeatureExtractor():
 if __name__ == "__main__":
 	cat_f = CategoryFeatureExtractor(1,5)
 	cat_f.cat_subcat()
-	print len(cat_f.features.values()[0])
+	print cat_f.features.values()[0]
 
     

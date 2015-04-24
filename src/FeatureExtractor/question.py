@@ -17,7 +17,7 @@ class Question:
     """
     def __init__(self,qid):
         self.qid = qid
-        conn = sqlite3.connect('../../data/quizbowl_buzz.db')
+        conn = sqlite3.connect('../../../data/quizbowl_buzz.db')
         cur = conn.cursor()
         query = "select text,answer,category,words from questions where id =? "
         c = cur.execute(query,(qid,))
