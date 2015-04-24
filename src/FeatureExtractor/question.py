@@ -9,24 +9,34 @@ stopwords = set(nltk.corpus.stopwords.words())
 
 
 
-class Question:
+class Question(object):
     """
     This class is used to extract question level features
     of ONE question from questions.csv file.
 
     """
-    def __init__(self,qid):
+    def __init__(self, qid):
+        self.conn = sqlite3.connect('../../../data/quizbowl_buzz.db')
+        self.cur = self.conn.cursor()
         self.qid = qid
-        conn = sqlite3.connect('../../data/quizbowl_buzz.db')
-        cur = conn.cursor()
         query = "select text,answer,category,words from questions where id =? "
-        c = cur.execute(query,(qid,))
+        c = self.cur.execute(query,(qid,))
         info = c.fetchall()
         self.text = info[0][0]
         self.answer = info[0][1]
         self.category = info[0][2]
         self.words = info[0]
-        conn.close()
+        self.conn.close()
+        
+    def __call__(self,qid):
+        self.qid = qid
+        query = "select text,answer,category,words from questions where id =? "
+        c = self.cur.execute(query,(qid,))
+        info = c.fetchall()
+        self.text = info[0][0]
+        self.answer = info[0][1]
+        self.category = info[0][2]
+        self.words = info[0]
 
 
     def tokenize(self,remove_stopwords=False, **othertext):
@@ -92,7 +102,8 @@ class Question:
 
 
 if __name__ == "__main__":
-    ques = Question(1)
+    ques = Question()
+    ques(1)
     ques.get_info()
     print "question text :: ", ques.text
     print "question ans :: ", ques.answer
