@@ -76,7 +76,8 @@ class Prepare_VW_Input(object):
         self.cat_features = list(result[0])
         
         
-    def write_features(self, question_id, user_id, **position):
+    def write_features(self, question_id, user_id, **kwargs):
+
         result =  self.get_question_features(question_id)
         self.get_user_features(user_id, question_id)
         user_zipped = zip(self.user_col_names, self.user_features)
@@ -94,13 +95,18 @@ class Prepare_VW_Input(object):
             cat_write = ' |Category_Features ' + ' '.join([(x[0] + ":" + str(x[1])) for x in cat_zipped[1:] if x[1] != 0.])
             tag = "'" + str(user) + "_" + str(question) + "_" + str(word_pos)
             
-            if position:
+            if kwargs.has_key('position'):
                 if word_pos == position:
                     label = 1
                 if word_pos == -position:
                     label = 3
                     
                 label_write = str(label) + " " + tag
+                
+            elif kwargs.has_key('id'):
+                tag = "'" + str(id) + "_" + str(word_pos)
+                label_write = tag
+                
             else:
                 label_write = tag
                 
@@ -136,7 +142,7 @@ if __name__ == "__main__":
             vw.write_features(question, user, position = position)
             
     if make_test == True:
-        output_file = '/Volumes/My Passport for Mac/MLProject_Home/data/vw_test.txt'
+        output_file = '/Volumes/My Passport for Mac/MLProject_Home/data/vw_test2.txt'
         vw = Prepare_VW_Input(output_file)
         count = 0
         for sample in test:
@@ -148,4 +154,4 @@ if __name__ == "__main__":
             question = int(sample['question'])
             user = int(sample['user'])
             
-            vw.write_features(question, user)
+            vw.write_features(question, user, id = id)
