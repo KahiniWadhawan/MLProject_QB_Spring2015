@@ -68,14 +68,15 @@ class WritePredictions(object):
                 
         w = writer(open(self.folder_path + 'guesses_count.csv', 'wb'))
         w.writerow(["id", "position"])
-        for key, value in self.guesses.items():
-            w.writerow([key, value])
+        sorted_keys = sorted(self.guesses.keys())
+        for key in sorted_keys:
+            w.writerow([key, self.guesses[key]])
 
 
 
 if __name__ == "__main__":
     
-    folder_path = '../../../predictions/'
+    folder_path = '../../../predictions/vw_trial1/'
     pred_file_name = 'pred_ect_first_run_full_train.txt'
     predictions = defaultdict(dict)
     
