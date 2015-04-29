@@ -1,4 +1,6 @@
-from sklearn.linear_model import Ridge, SGDClassifier
+from sklearn.linear_model import Ridge,Lasso,SGDClassifier
+from sklearn import svm
+from sklearn.svm import SVR
 
 
 class User:
@@ -6,10 +8,12 @@ class User:
 	An instance of this class User has two attributes, clf and reg.
 	clf: Classifier object (default = Stochastic Gradient Decsent Logreg) 
 	reg: Regression object (default = Ridge Linear Regression)
-
+	Classifier=SGDClassifier(loss='log', penalty='l2', shuffle=True)
+	Classifier=svm.SVC()
+	SVR(kernel='rbf')
 	"""
 	def __init__(self,Classifier=SGDClassifier(loss='log', penalty='l2', shuffle=True),
-				 Regression=Ridge()):
+				 Regression=Lasso()):
 		self.clf = Classifier
 		self.reg = Regression
 		self.one_class = False
@@ -38,4 +42,5 @@ class User:
 		pos = self.reg.predict(X)
 
 		return sign*pos
-
+	def regression_only_predict(self,X):
+		return self.reg.predict(X)

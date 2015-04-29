@@ -1,4 +1,6 @@
 import numpy as np
+import sqlite3
+from csv import DictReader
 
 """
 Scratch Pad
@@ -25,8 +27,9 @@ class FeatureExtractor:
 	def __init__(self):
 		pass
 
-	def __call__(self,question):
+	def __call__(self,question,vocab):
 		self.question = question
+		self.vocab = vocab
 
 	def category(self):
 		"""
@@ -34,20 +37,30 @@ class FeatureExtractor:
 		whose index corresponds to a position of a given question's genre
 		in a list, genres.
 		"""
-		vector = np.zeros(len(categories))
-		vector[categories.index(self.question["category"])] = 1
+		conn = sqlite3.connect('../data/quizbowl_category.db')
+		cur = conn.cursor()
+		query = "select * from category_all where Question = ?;"
+		c = cur.execute(query,(self.question["id"],))
+		res = c.fetchall()[0]
+		vector = list(res)[1:]
+		conn.close()
 		return vector
 
+
+		#vector = np.zeros(len(categories))
+		#vector[categories.index(self.question["category"])] = 1
+		#return vector
+
 	def text_length(self):
-		return np.array([len(self.question["text"])])
+		return [len(self.question["text"])]
 
 	def number_of_words(self):
-		return np.array([len(eval(self.question["words"]).values())])
+		return [len(eval(self.question["words"]).values())]
 
 	def bag_of_words(self):
 		
 		words = eval(self.question["words"]).values()
-		vector = np.zeros(len(self.vocab))
+		vector = list(np.zeros(len(self.vocab)))
 
 		for w in words:
 			if w in self.vocab:
@@ -64,22 +77,14 @@ class FeatureExtractor:
 		# concatenating feature vectors from other methods using
 		# np.concatenate()
 							  
-		return self.category()+self.text_length()+self.number_of_words()
+		return np.array(self.category()+self.text_length()+self.number_of_words())
 
 if __name__ == "__main__":
-
-	from csv import DictReader
-
-	vocab = []
-	with open("words.txt","r") as f:
-		for e in f.readlines():
-			vocab.append(e[:-2])
-
 	questions = list(DictReader(open("../data"+"/questions.csv","r")))
-	FE = FeatureExtractor(vocab=vocab)
+	FE = FeatureExtractor()
 	FE(questions[10])
-	print FE.bag_of_words()
+	print len(FE.extract())
 
-
+	
 
 

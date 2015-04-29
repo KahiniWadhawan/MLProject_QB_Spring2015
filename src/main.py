@@ -5,6 +5,9 @@ from collections import defaultdict
 
 from UserModel import User
 from Features import FeatureExtractor
+from Validation import Validation
+
+import random
 
 folder_path = "../data"
 
@@ -87,7 +90,7 @@ def user_examples(user,train,questions):
 
 	return zip(*qs_pos)
 
-def XY_generator(user,train,questions):
+def XY_generator(user,train,questions,vocab):
 	"""
 	inputs: a user's id
 		    training set
@@ -109,16 +112,16 @@ def XY_generator(user,train,questions):
 
 	FE = FeatureExtractor()
 	for q in qs:
-		FE(q) # feed this FeatureExtractor with a question data
+		FE(q,vocab) # feed this FeatureExtractor with a question data
 		X.append(FE.extract())
 
 	return X,Y
 
-def X_generator(qid,question):
+def X_generator(qid,question,vocab):
 	FE = FeatureExtractor()
 	for q in question:
 		if q["id"] == qid:
-			FE(q)
+			FE(q,vocab)
 			return FE.extract()
 
 
@@ -140,18 +143,32 @@ def ensemble(UserGroup,X):
 	signs = []
 	positions = []
 	for u in UserGroup.keys():
-		output = float(UserGroup[u].predict(X))
+		output = float(UserGroup[u].regression_only_predict(X))
 		signs.append(np.sign(output))
 		positions.append(abs(output))
 
 	return most_common(signs)*np.average(positions)
 
+def train_test_split(percentage=0.75):
+	train = data_import(folder_path+"/train.csv")
+	
+	train_splited = random.sample(train,int(len(train)*percentage))
+	train_id = []
+	for ts in train_splited:
+		train_id.append(ts["id"])
 
-if __name__ == "__main__":
+	test_splited = []
+	for t in train:
+		if t["id"] not in train_id:
+			test_splited.append(t)
+	
+	return train_splited,test_splited
+
+def main(train=None,test=None):
 	train = data_import(folder_path+"/train.csv")
 	questions = data_import(folder_path+"/questions.csv")
 
-	clusters,user_cluster = cluster_import("user_cluster.txt")
+	#clusters,user_cluster = cluster_import("user_cluster.txt")
 
 	
 	
@@ -164,48 +181,80 @@ if __name__ == "__main__":
 		for n in nouns:
 			f.write(n+"\n")
 	"""
+	vocab = set()
+	#with open("words.txt","r") as f:
+	#	for e in f.readlines():
+	#		vocab.add(unicode(e[:-2]))
+
+	vocab = list(vocab)
 	
 	user_ids = users(train)
 	UserGroup = {}
 
 	
-	for c in clusters.keys():
-		user_c = User()
-		Xs = []
-		Y_cls_s = []
-		Y_reg_s = []
+	#for c in clusters.keys():
+	#	user_c = User()
+	#	Xs = []
+	#	Y_cls_s = []
+	#	Y_reg_s = []
+	#	
+	#	for u in clusters[c]:
+	#		
+	#		if str(u) not in user_ids:
+	#			continue
+	#		X,Y = XY_generator(u,train,questions)
+	#		Y_cls = map(np.sign,Y)
+	#		Y_reg = map(abs,Y)
+	#		Xs += X
+	#		Y_cls_s += Y_cls
+	#		Y_reg_s += Y_reg
+	#	
+	#	user_c.fit_classifier(Xs, Y_cls_s)
+	#	user_c.fit_regression(Xs, Y_reg_s)
+	#	UserGroup[c] = user_c
 
-		for u in clusters[c]:
-			X,Y = XY_generator(u,train,questions)
-			Y_cls = map(np.sign,Y)
-			Y_reg = map(abs,Y)
-			Xs += X
-			Y_cls_s += Y_cls
-			Y_reg_s += Y_reg
 
-
-		user_c.fit_classifier(Xs, Y_cls_s)
-		user_c.fit_regression(Xs, Y_reg_s)
-		UserGroup[c] = user_c
-
-
-	#for u in user_ids:
-	#	X,Y = XY_generator(u,train,questions,vocab)
-	#	Y_cls = map(np.sign,Y)
-	#	Y_reg = map(abs,Y)
-	#	user = User()
-	#	user.fit_classifier(X, Y_cls)
-	#	user.fit_regression(X, Y_reg)
-	#	UserGroup[u] = user
+	for u in user_ids:
+		X,Y = XY_generator(u,train,questions,vocab)
+		#Y_cls = map(np.sign,Y)
+		#Y_reg = map(abs,Y)
+		user = User()
+		#user.fit_classifier(X, Y_cls)
+		#user.fit_regression(X, Y_reg)
+		user.fit_regression(X, Y)
+		UserGroup[u] = user
 
 	test = data_import(folder_path+"/test.csv")
-	for t in test:
-		if t["user"] in user_cluster.keys():
-			result = UserGroup[user_cluster[t["user"]]].predict(X_generator(t["question"], questions))
+
+	test_splitted = [{"id":t["id"],"question":t["question"],"user":t["user"]} for t in test]
+	#test_Ys = [float(t["position"]) for t in test]
+
+	predict_Y = []
+	print "Going to predict...."
+	for t in test_splitted:
+		if t["user"] in UserGroup.keys():
+		#if t["user"] in user_cluster.keys():
+			#result = UserGroup[user_cluster[t["user"]]].predict(X_generator(t["question"], questions,vocab))
+			result = UserGroup[t["user"]].regression_only_predict(X_generator(t["question"], questions,vocab))
+			predict_Y.append(result)
 			print t["id"] +","+ str(result)
 		else:
-			result = ensemble(UserGroup,X_generator(t["question"], questions))
+			result = ensemble(UserGroup,X_generator(t["question"], questions,vocab))
+			predict_Y.append(result)
 			print t["id"] +","+ str(result)
+	
+	#V = Validation(test_Ys,predict_Y)
+	#print "V.RMSE():",V.RMSE()
+	#print "V.Correctness():",V.Correctness()
+	#V.Correctness_sign()
+
+
 	
 
 
+
+
+
+if __name__ == "__main__":
+	train,test = train_test_split()
+	main(train, test)
