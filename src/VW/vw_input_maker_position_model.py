@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
 
-import sqlite3
+import sqlite3, os
 from csv import DictReader
+from csv import writer
 
-
-class Prepare_VW_Input(object):
+class Prepare_VW_Input_Position_Model(object):
     '''class to prepare input data for VW'''
-    def __init__(self, output_file = '/Volumes/My Passport for Mac/MLProject_Home/data/vw_input.txt', \
-    questions_db = '../../../data/quizbowl_buzz.db', question_feat_db = '../../../data/question_features2.db', \
+    def __init__(self, questions_db = '../../../data/quizbowl_buzz.db', \
+    question_feat_db = '../../../data/question_features2.db', \
     user_feat_db = '../../../data/quizbowl_user.db', cat_feat_db = '../../../data/quizbowl_category.db', \
     questions_table = 'questions' , question_feat_table = 'sparse_features_word', \
     user_feat_table= 'user_features', cat_feat_table = 'category_all'):
-        
-        self.output_file = output_file
         
         self.questions_conn = sqlite3.connect(questions_db)
         self.question_feat_conn = sqlite3.connect(question_feat_db)
@@ -58,8 +56,7 @@ class Prepare_VW_Input(object):
         query = "select * from {} where QuestionID = ?;".format(self.question_feat_table)
         c = self.question_feat_cur.execute(query,(question_id,))
         result = c.fetchall()
-        return result
-        
+        return result       
     
     def get_user_features(self, user_id, question_id):
         self.user_features = []
@@ -75,13 +72,10 @@ class Prepare_VW_Input(object):
         result = c.fetchall()
         self.cat_features = list(result[0])
         
-        
-    def write_features(self, question_id, user_id, **kwargs):
-
+    def write_features(self, question_id, user_id, output_file, **kwargs):
         result =  self.get_question_features(question_id)
         self.get_user_features(user_id, question_id)
         user_zipped = zip(self.user_col_names, self.user_features)
-
     
         self.get_cat_features(question_id)
         cat_zipped = zip(self.cat_col_names, self.cat_features)
@@ -96,38 +90,43 @@ class Prepare_VW_Input(object):
             tag = "'" + str(user) + "_" + str(question) + "_" + str(word_pos)
             
             if kwargs.has_key('position'):
-                if word_pos == position:
+                if word_pos == abs(position):
                     label = 1
-                if word_pos == -position:
-                    label = 3
                     
                 label_write = str(label) + " " + tag
-                
             elif kwargs.has_key('id'):
                 tag = "'" + str(id) + "_" + str(word_pos)
                 label_write = tag
-                
             else:
                 label_write = tag
-                
-            
+
             write_vw = label_write + ques_word_write + user_write + cat_write + "\n"
-            with open(self.output_file,'a') as fp:
+            with open(output_file,'a') as fp:
                 fp.write(write_vw)
-            
+
+def make_validation_guess_file(id, position, output_file):   
+    if not os.path.exists(output_file):
+        w = writer(open(output_file, 'wb'))
+        w.writerow(["id", "position"])
+        w.writerow([id, position])
+    else:
+        w = writer(open(output_file, 'a'))
+        w.writerow([id, position])
 
 if __name__ == "__main__":
-    
     folder_path = '../../../data/'
     train = DictReader(open(folder_path+"train.csv","r"))
     test = DictReader(open(folder_path+"test.csv","r"))
     passed_ids = []
-    make_train = False
+    make_train = True
     make_test = True
+    val_offset = 2
+    val_percent = 4
+    
+    output_folder = '/Volumes/My Passport for Mac/MLProject_Home/data/trial1/'
     
     if make_train == True:
-        output_file = '/Volumes/My Passport for Mac/MLProject_Home/data/vw_input.txt'
-        vw = Prepare_VW_Input(output_file)
+        vw = Prepare_VW_Input_Position_Model()
         count = 0
         for sample in train:
             count += 1
@@ -139,11 +138,14 @@ if __name__ == "__main__":
             user = int(sample['user'])
             
             position = float(sample['position'])
-            vw.write_features(question, user, position = position)
-            
+            if (count + val_offset) % val_percent == 0:
+                vw.write_features(question, user, output_file = output_folder + 'vw_pos_validation.txt', id = id)
+                make_validation_guess_file(id, position, output_file = output_folder + 'val_guesses.csv')
+            else:
+                vw.write_features(question, user, output_file = output_folder + 'vw_pos_train.txt', position = position)            
+     
     if make_test == True:
-        output_file = '/Volumes/My Passport for Mac/MLProject_Home/data/vw_test2.txt'
-        vw = Prepare_VW_Input(output_file)
+        vw = Prepare_VW_Input_Position_Model()
         count = 0
         for sample in test:
             count += 1
@@ -154,4 +156,4 @@ if __name__ == "__main__":
             question = int(sample['question'])
             user = int(sample['user'])
             
-            vw.write_features(question, user, id = id)
+            vw.write_features(question, user, output_file = output_folder + 'vw_pos_test.txt', id = id)
