@@ -112,16 +112,16 @@ def XY_generator(user,train,questions,vocab):
 
 	FE = FeatureExtractor()
 	for q in qs:
-		FE(q,vocab) # feed this FeatureExtractor with a question data
+		FE(q,vocab,user) # feed this FeatureExtractor with a question data
 		X.append(FE.extract())
 
 	return X,Y
 
-def X_generator(qid,question,vocab):
+def X_generator(user,qid,question,vocab):
 	FE = FeatureExtractor()
 	for q in question:
 		if q["id"] == qid:
-			FE(q,vocab)
+			FE(q,vocab,user)
 			return FE.extract()
 
 
@@ -165,7 +165,7 @@ def train_test_split(percentage=0.75):
 	return train_splited,test_splited
 
 def main(train=None,test=None):
-	train = data_import(folder_path+"/train.csv")
+	#train = data_import(folder_path+"/train.csv")
 	questions = data_import(folder_path+"/questions.csv")
 
 	#clusters,user_cluster = cluster_import("user_cluster.txt")
@@ -224,10 +224,10 @@ def main(train=None,test=None):
 		user.fit_regression(X, Y)
 		UserGroup[u] = user
 
-	test = data_import(folder_path+"/test.csv")
+	#test = data_import(folder_path+"/test.csv")
 
 	test_splitted = [{"id":t["id"],"question":t["question"],"user":t["user"]} for t in test]
-	#test_Ys = [float(t["position"]) for t in test]
+	test_Ys = [float(t["position"]) for t in test]
 
 	predict_Y = []
 	print "Going to predict...."
@@ -235,17 +235,17 @@ def main(train=None,test=None):
 		if t["user"] in UserGroup.keys():
 		#if t["user"] in user_cluster.keys():
 			#result = UserGroup[user_cluster[t["user"]]].predict(X_generator(t["question"], questions,vocab))
-			result = UserGroup[t["user"]].regression_only_predict(X_generator(t["question"], questions,vocab))
+			result = UserGroup[t["user"]].regression_only_predict(X_generator(t["user"],t["question"], questions,vocab))
 			predict_Y.append(result)
 			print t["id"] +","+ str(result)
 		else:
-			result = ensemble(UserGroup,X_generator(t["question"], questions,vocab))
+			result = ensemble(UserGroup,X_generator(t["user"],t["question"], questions,vocab))
 			predict_Y.append(result)
 			print t["id"] +","+ str(result)
 	
-	#V = Validation(test_Ys,predict_Y)
-	#print "V.RMSE():",V.RMSE()
-	#print "V.Correctness():",V.Correctness()
+	V = Validation(test_Ys,predict_Y)
+	print "V.RMSE():",V.RMSE()
+	print "V.Correctness():",V.Correctness()
 	#V.Correctness_sign()
 
 

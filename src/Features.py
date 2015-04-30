@@ -27,9 +27,10 @@ class FeatureExtractor:
 	def __init__(self):
 		pass
 
-	def __call__(self,question,vocab):
+	def __call__(self,question,vocab,user):
 		self.question = question
 		self.vocab = vocab
+		self.user = user
 
 	def category(self):
 		"""
@@ -50,6 +51,23 @@ class FeatureExtractor:
 		#vector = np.zeros(len(categories))
 		#vector[categories.index(self.question["category"])] = 1
 		#return vector
+
+	def user_features(self):
+		"""
+		This gives user category cor_ratio an avg buzz 
+		"""
+		conn = sqlite3.connect('../data/quizbowl_user.db')
+		cur = conn.cursor()
+		query = "select * from user_features where user = ? and category = ? ;"
+		#print "hello :: " , self.question[0]
+		c = cur.execute(query,(self.user, self.question["category"])) 
+		#c = cur.execute(query,(self.question,))
+		res = c.fetchall()[0]
+		#print "user features :: ", res
+		vector = list(res)[2:]
+		#print "cat and feat :: ", self.question["id"], self.question["category"], vector
+		conn.close()
+		return vector
 
 	def text_length(self):
 		return [len(self.question["text"])]
@@ -77,7 +95,7 @@ class FeatureExtractor:
 		# concatenating feature vectors from other methods using
 		# np.concatenate()
 							  
-		return np.array(self.category()+self.text_length()+self.number_of_words())
+		return np.array(self.category()+self.text_length()+self.number_of_words()+self.user_features())
 
 if __name__ == "__main__":
 	questions = list(DictReader(open("../data"+"/questions.csv","r")))
