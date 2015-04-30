@@ -1,6 +1,7 @@
 from sklearn.linear_model import Ridge,Lasso,SGDClassifier
 from sklearn import svm
 from sklearn.svm import SVR
+from sklearn.ensemble import AdaBoostClassifier,AdaBoostRegressor
 
 
 class User:
@@ -13,7 +14,7 @@ class User:
 	SVR(kernel='rbf')
 	"""
 	def __init__(self,Classifier=SGDClassifier(loss='log', penalty='l2', shuffle=True),
-				 Regression=Lasso()):
+				 Regression=AdaBoostRegressor(n_estimators=300)):
 		self.clf = Classifier
 		self.reg = Regression
 		self.one_class = False
@@ -39,8 +40,8 @@ class User:
 			sign = 1.0
 		else:
 			sign = -1.0
-		pos = self.reg.predict(X)
+		pos = self.reg.predict([X])
 
-		return sign*pos
+		return sign*pos[0]
 	def regression_only_predict(self,X):
-		return self.reg.predict(X)
+		return self.reg.predict([X])[0]
