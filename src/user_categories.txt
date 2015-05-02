@@ -1,0 +1,2208 @@
+344,Social Studies,1
+344,Literature,2
+344,Chemistry,1
+344,Physics,1
+344,History,3
+0,Earth Science,1
+0,Biology,10
+0,Literature,97
+0,Fine Arts,49
+0,Social Studies,74
+0,Mathematics,3
+0,Chemistry,19
+0,Physics,21
+0,History,38
+346,History,1
+346,Literature,1
+346,Physics,1
+346,Fine Arts,2
+347,Social Studies,2
+347,Literature,2
+347,Chemistry,1
+347,Fine Arts,1
+340,Literature,1
+341,Social Studies,1
+341,Physics,1
+341,History,1
+342,Literature,3
+342,Fine Arts,1
+342,Physics,1
+342,Chemistry,1
+342,History,1
+348,Biology,3
+348,Literature,21
+348,Other,1
+348,Social Studies,6
+348,Chemistry,1
+348,Physics,1
+349,Social Studies,2
+349,Literature,6
+298,Social Studies,3
+298,Literature,5
+298,Fine Arts,1
+299,Literature,1
+299,History,2
+296,Social Studies,2
+296,Literature,3
+296,History,3
+297,Social Studies,3
+297,Fine Arts,2
+297,Literature,1
+297,History,1
+294,Literature,1
+294,History,3
+295,Fine Arts,2
+295,Literature,4
+295,Physics,3
+295,History,2
+292,Literature,1
+292,Physics,1
+292,History,1
+293,Literature,5
+293,Fine Arts,1
+293,Other,1
+293,Social Studies,4
+293,Physics,1
+293,History,2
+290,Biology,1
+290,Literature,9
+290,Fine Arts,3
+290,Social Studies,4
+290,Chemistry,1
+290,Physics,2
+290,History,2
+291,History,1
+199,Social Studies,2
+199,Literature,2
+199,History,2
+198,Social Studies,3
+198,Literature,1
+198,Physics,1
+198,Chemistry,1
+198,History,1
+195,Social Studies,3
+195,Literature,1
+195,Chemistry,1
+195,Fine Arts,1
+194,History,2
+194,Literature,3
+194,Chemistry,1
+194,Fine Arts,1
+197,Literature,6
+197,Fine Arts,2
+197,Social Studies,3
+197,Chemistry,1
+197,Physics,1
+197,History,1
+196,Literature,5
+196,Fine Arts,1
+196,Social Studies,2
+196,Chemistry,1
+196,Physics,1
+196,History,1
+191,Biology,1
+191,Literature,11
+191,Fine Arts,3
+191,Social Studies,11
+191,Chemistry,1
+191,Physics,1
+191,History,3
+190,Social Studies,10
+190,Mathematics,1
+190,Literature,2
+190,Physics,3
+190,History,1
+193,Social Studies,2
+193,Fine Arts,2
+192,Biology,1
+192,Literature,3
+192,Fine Arts,1
+192,Social Studies,3
+192,Chemistry,1
+192,Physics,2
+270,Social Studies,2
+270,Literature,8
+271,Social Studies,1
+272,Social Studies,3
+272,Literature,4
+272,Chemistry,1
+272,History,2
+273,Social Studies,1
+273,Physics,1
+274,Social Studies,1
+275,Social Studies,4
+275,Literature,7
+275,Other,2
+276,Social Studies,2
+276,Physics,1
+276,Literature,3
+276,Other,1
+276,History,3
+277,Social Studies,9
+277,Biology,2
+277,Literature,10
+277,Physics,3
+277,Fine Arts,4
+278,Social Studies,1
+278,Mathematics,1
+278,Fine Arts,1
+279,Social Studies,4
+279,Literature,29
+449,History,1
+448,History,1
+443,Literature,1
+442,Literature,1
+441,Literature,1
+440,Literature,2
+447,History,1
+446,History,1
+445,History,1
+444,Physics,1
+108,Literature,5
+108,Fine Arts,6
+108,Social Studies,5
+108,Mathematics,1
+108,Chemistry,1
+108,Physics,2
+108,History,3
+109,Biology,1
+109,Literature,4
+109,Fine Arts,2
+109,Social Studies,4
+109,Physics,2
+109,History,3
+102,Biology,1
+102,Literature,21
+102,Fine Arts,4
+102,Social Studies,18
+102,Mathematics,2
+102,Chemistry,1
+102,Physics,7
+102,History,3
+103,Literature,9
+103,Fine Arts,5
+103,Social Studies,3
+103,Mathematics,1
+103,Chemistry,1
+103,History,2
+100,Biology,3
+100,Literature,17
+100,Fine Arts,11
+100,Other,1
+100,Social Studies,11
+100,Chemistry,4
+100,Physics,7
+100,History,6
+101,Biology,4
+101,Literature,29
+101,Fine Arts,13
+101,Social Studies,19
+101,Mathematics,1
+101,Chemistry,3
+101,Physics,4
+101,History,13
+106,Biology,1
+106,Literature,15
+106,Fine Arts,4
+106,Social Studies,5
+106,Physics,2
+106,History,5
+107,Literature,7
+107,Fine Arts,4
+107,Social Studies,10
+107,Chemistry,1
+107,Physics,1
+107,History,4
+104,Biology,2
+104,Literature,16
+104,Fine Arts,6
+104,Social Studies,9
+104,Chemistry,1
+104,Physics,3
+104,History,4
+105,Biology,1
+105,Literature,7
+105,Fine Arts,5
+105,Social Studies,5
+105,Chemistry,2
+105,Physics,2
+105,History,2
+39,Biology,3
+39,Literature,28
+39,Fine Arts,14
+39,Social Studies,18
+39,Chemistry,5
+39,Physics,6
+39,History,11
+38,Biology,3
+38,Chemistry,7
+38,Fine Arts,5
+38,Other,2
+38,Social Studies,15
+38,Mathematics,1
+38,Astronomy,2
+38,Physics,3
+38,History,1
+33,Earth Science,3
+33,Biology,28
+33,Literature,192
+33,Astronomy,3
+33,Fine Arts,87
+33,Other,7
+33,Social Studies,127
+33,Mathematics,4
+33,Chemistry,22
+33,Physics,38
+33,History,81
+32,Social Studies,7
+32,History,3
+32,Literature,16
+32,Physics,4
+32,Fine Arts,5
+31,Biology,15
+31,Literature,84
+31,Astronomy,4
+31,Fine Arts,58
+31,Other,4
+31,Social Studies,82
+31,Mathematics,5
+31,Chemistry,21
+31,Physics,23
+31,History,60
+30,Earth Science,3
+30,Biology,45
+30,Literature,256
+30,Astronomy,6
+30,Fine Arts,231
+30,Other,12
+30,Social Studies,186
+30,Mathematics,11
+30,Chemistry,34
+30,Physics,56
+30,History,100
+37,Biology,4
+37,Literature,35
+37,Chemistry,1
+37,Fine Arts,14
+37,Social Studies,29
+37,Astronomy,1
+37,Physics,2
+37,History,12
+36,Biology,2
+36,Literature,16
+36,Fine Arts,6
+36,Other,2
+36,Social Studies,6
+36,Chemistry,1
+36,Physics,2
+36,History,1
+35,Biology,5
+35,Literature,55
+35,Astronomy,1
+35,Fine Arts,30
+35,Other,1
+35,Social Studies,24
+35,Mathematics,3
+35,Chemistry,6
+35,Physics,7
+35,History,12
+34,Literature,20
+34,Fine Arts,1
+34,Other,5
+34,Social Studies,26
+34,Physics,1
+34,History,8
+438,Social Studies,1
+439,Social Studies,1
+436,Social Studies,1
+437,Social Studies,1
+434,Social Studies,1
+435,Social Studies,1
+432,Social Studies,1
+433,Social Studies,1
+430,Social Studies,1
+430,Literature,1
+431,Social Studies,1
+339,Literature,2
+338,Social Studies,2
+338,Literature,2
+338,Physics,2
+338,History,1
+335,History,1
+334,History,1
+337,History,1
+336,Physics,1
+336,History,1
+331,Literature,3
+331,Physics,1
+331,History,1
+330,Literature,1
+330,Physics,1
+330,History,1
+333,Biology,1
+333,Literature,1
+333,Fine Arts,1
+333,Social Studies,1
+333,Chemistry,1
+333,Physics,2
+333,History,1
+332,History,1
+345,Literature,6
+345,Fine Arts,1
+345,Other,1
+345,Social Studies,4
+345,Chemistry,1
+345,Physics,1
+345,History,1
+6,Social Studies,26
+6,Fine Arts,19
+6,Literature,44
+6,History,18
+99,Social Studies,5
+99,Literature,4
+99,History,3
+99,Astronomy,1
+99,Fine Arts,2
+98,Biology,5
+98,Literature,138
+98,Astronomy,1
+98,Fine Arts,77
+98,Other,6
+98,Social Studies,90
+98,Chemistry,2
+98,Physics,2
+98,History,55
+91,Biology,7
+91,Literature,30
+91,Fine Arts,15
+91,Other,1
+91,Social Studies,24
+91,Chemistry,3
+91,Physics,4
+91,History,7
+90,Social Studies,13
+90,Biology,7
+90,Literature,5
+90,Chemistry,10
+90,Fine Arts,5
+93,Biology,2
+93,Literature,43
+93,Fine Arts,8
+93,Other,1
+93,Social Studies,73
+93,Physics,3
+93,History,11
+92,Biology,4
+92,Literature,23
+92,Astronomy,1
+92,Fine Arts,16
+92,Other,1
+92,Social Studies,17
+92,Mathematics,1
+92,Chemistry,5
+92,Physics,7
+92,History,5
+95,Biology,4
+95,Literature,15
+95,Fine Arts,6
+95,Social Studies,12
+95,Chemistry,2
+95,Physics,4
+95,History,3
+94,Literature,28
+94,Fine Arts,5
+94,Social Studies,13
+94,Chemistry,1
+94,Physics,2
+94,History,12
+97,Biology,5
+97,Literature,6
+97,Fine Arts,1
+97,Social Studies,3
+97,Mathematics,1
+97,Chemistry,2
+97,Physics,3
+96,Biology,3
+96,Literature,23
+96,Fine Arts,11
+96,Social Studies,20
+96,Chemistry,3
+96,Physics,4
+96,History,6
+238,Social Studies,3
+238,Literature,3
+238,Physics,1
+238,History,2
+239,Social Studies,3
+239,Literature,4
+239,History,2
+239,Fine Arts,1
+234,Social Studies,1
+234,Literature,2
+234,History,1
+234,Fine Arts,1
+235,Literature,1
+235,History,1
+235,Fine Arts,1
+236,Biology,1
+236,Literature,15
+236,Fine Arts,6
+236,Social Studies,2
+236,Mathematics,1
+236,Physics,4
+236,History,1
+237,Literature,2
+237,Fine Arts,2
+237,Social Studies,1
+237,Chemistry,1
+237,Physics,1
+237,History,1
+230,Biology,2
+230,Literature,18
+230,Fine Arts,1
+230,Other,1
+230,Social Studies,1
+230,Physics,1
+231,Biology,1
+231,Literature,9
+231,Fine Arts,3
+231,Social Studies,4
+231,Physics,3
+231,History,1
+232,Literature,2
+232,Other,1
+232,History,1
+233,Biology,3
+233,Literature,17
+233,Fine Arts,7
+233,Social Studies,10
+233,Mathematics,1
+233,Chemistry,2
+233,Physics,7
+233,History,4
+1,Earth Science,1
+1,Biology,26
+1,Literature,133
+1,Astronomy,3
+1,Fine Arts,73
+1,Other,6
+1,Social Studies,116
+1,Mathematics,6
+1,Chemistry,23
+1,Physics,40
+1,History,71
+146,Literature,8
+146,Fine Arts,2
+147,Biology,1
+147,Literature,22
+147,Fine Arts,7
+147,Other,2
+147,Social Studies,8
+147,Physics,4
+147,History,5
+144,Biology,2
+144,Literature,20
+144,Chemistry,2
+144,Fine Arts,9
+144,Social Studies,11
+144,Mathematics,1
+144,Astronomy,1
+144,Physics,4
+144,History,5
+145,Social Studies,73
+145,Fine Arts,3
+145,Literature,18
+145,Physics,2
+145,History,4
+142,Biology,2
+142,Literature,32
+142,Fine Arts,8
+142,Social Studies,20
+142,Chemistry,3
+142,Physics,10
+142,History,8
+143,Biology,2
+143,Literature,21
+143,Fine Arts,6
+143,Other,1
+143,Social Studies,11
+143,Chemistry,2
+143,Physics,6
+143,History,4
+140,Biology,1
+140,Literature,5
+140,Fine Arts,4
+140,Social Studies,2
+140,Chemistry,1
+140,Physics,3
+140,History,4
+141,Social Studies,7
+141,Literature,14
+148,Biology,2
+148,Literature,21
+148,Fine Arts,8
+148,Other,1
+148,Social Studies,14
+148,Chemistry,2
+148,Physics,5
+148,History,5
+149,Biology,1
+149,Literature,7
+149,Fine Arts,5
+149,Social Studies,4
+149,Physics,5
+149,History,3
+133,Biology,1
+133,Literature,5
+133,Fine Arts,7
+133,Social Studies,5
+133,Chemistry,1
+133,Physics,3
+133,History,3
+132,Biology,7
+132,Literature,41
+132,Fine Arts,22
+132,Other,1
+132,Social Studies,28
+132,Mathematics,1
+132,Chemistry,5
+132,Physics,8
+132,History,13
+131,Biology,1
+131,Literature,19
+131,Chemistry,5
+131,Fine Arts,12
+131,Social Studies,14
+131,Mathematics,2
+131,Astronomy,1
+131,Physics,11
+131,History,8
+130,Earth Science,1
+130,Biology,1
+130,Literature,32
+130,Chemistry,7
+130,Fine Arts,17
+130,Other,2
+130,Social Studies,26
+130,Mathematics,1
+130,Astronomy,1
+130,Physics,4
+130,History,19
+137,Biology,1
+137,Literature,7
+137,Chemistry,1
+137,Fine Arts,7
+137,Social Studies,7
+137,Astronomy,1
+137,Physics,4
+137,History,3
+136,Literature,7
+136,Chemistry,1
+136,Fine Arts,10
+136,Other,1
+136,Social Studies,14
+136,Astronomy,2
+136,Physics,3
+136,History,8
+135,Biology,3
+135,Literature,23
+135,Astronomy,1
+135,Fine Arts,6
+135,Other,1
+135,Social Studies,13
+135,Chemistry,2
+135,Physics,6
+135,History,5
+134,Biology,2
+134,Literature,20
+134,Fine Arts,5
+134,Social Studies,10
+134,Chemistry,1
+134,Physics,1
+134,History,4
+139,Biology,1
+139,Literature,7
+139,Fine Arts,5
+139,Social Studies,5
+139,Chemistry,2
+139,Physics,2
+139,History,2
+138,Social Studies,3
+138,Literature,9
+138,History,2
+138,Other,1
+138,Fine Arts,4
+24,Biology,2
+24,Literature,217
+24,Fine Arts,48
+24,Other,4
+24,Social Studies,53
+24,Astronomy,1
+24,History,79
+25,Literature,17
+25,Fine Arts,25
+25,Other,2
+25,Social Studies,10
+25,Physics,1
+25,History,2
+26,Biology,5
+26,Literature,64
+26,Astronomy,1
+26,Fine Arts,22
+26,Social Studies,24
+26,Chemistry,4
+26,Physics,12
+26,History,9
+27,Earth Science,1
+27,Biology,8
+27,Literature,168
+27,Astronomy,5
+27,Fine Arts,49
+27,Other,9
+27,Social Studies,83
+27,Chemistry,8
+27,Physics,7
+27,History,32
+20,Earth Science,2
+20,Biology,7
+20,Literature,263
+20,Chemistry,1
+20,Fine Arts,113
+20,Other,18
+20,Social Studies,184
+20,Mathematics,7
+20,Astronomy,1
+20,Physics,6
+20,History,105
+21,Earth Science,1
+21,Biology,8
+21,Literature,59
+21,Chemistry,5
+21,Fine Arts,30
+21,Other,1
+21,Social Studies,44
+21,Mathematics,3
+21,Astronomy,1
+21,Physics,16
+21,History,22
+22,Biology,13
+22,Literature,88
+22,Astronomy,1
+22,Fine Arts,38
+22,Other,2
+22,Social Studies,70
+22,Mathematics,3
+22,Chemistry,10
+22,Physics,22
+22,History,34
+23,Earth Science,3
+23,Biology,26
+23,Literature,164
+23,Astronomy,2
+23,Fine Arts,82
+23,Other,10
+23,Social Studies,115
+23,Mathematics,3
+23,Chemistry,25
+23,Physics,35
+23,History,68
+28,Earth Science,3
+28,Biology,36
+28,Literature,233
+28,Astronomy,7
+28,Fine Arts,100
+28,Other,6
+28,Social Studies,166
+28,Mathematics,11
+28,Chemistry,31
+28,Physics,49
+28,History,78
+29,Biology,1
+29,Literature,90
+29,Fine Arts,40
+29,Other,5
+29,Social Studies,22
+29,History,36
+407,Fine Arts,1
+406,Literature,1
+406,Chemistry,1
+406,Physics,1
+406,History,1
+405,Social Studies,1
+405,Chemistry,1
+404,Chemistry,1
+403,Social Studies,3
+403,Biology,2
+403,Chemistry,1
+403,Physics,2
+402,Social Studies,1
+402,Biology,1
+402,Chemistry,1
+402,Physics,2
+401,Physics,1
+400,Chemistry,1
+400,Physics,1
+409,Physics,1
+408,Chemistry,1
+408,Physics,1
+379,History,1
+378,History,1
+371,History,1
+370,History,1
+372,Literature,1
+372,History,1
+375,History,1
+374,History,1
+377,Literature,1
+377,Physics,1
+377,History,1
+376,Physics,1
+393,Social Studies,17
+392,Literature,2
+88,Biology,3
+88,Literature,109
+88,Chemistry,3
+88,Fine Arts,24
+88,Other,3
+88,Social Studies,74
+88,Mathematics,1
+88,Astronomy,2
+88,Physics,7
+88,History,14
+89,Biology,11
+89,Literature,47
+89,Astronomy,3
+89,Chemistry,10
+89,Fine Arts,23
+89,Other,1
+89,Social Studies,51
+89,Mathematics,1
+89,Earth Science,2
+89,Physics,13
+89,History,26
+396,Mathematics,2
+396,Biology,2
+396,Astronomy,1
+396,Physics,18
+396,Chemistry,18
+395,Social Studies,1
+394,Social Studies,1
+394,Literature,1
+394,Physics,1
+82,Biology,1
+82,Literature,12
+82,Chemistry,2
+82,Fine Arts,6
+82,Social Studies,6
+82,Mathematics,1
+82,Astronomy,1
+82,Physics,3
+82,History,5
+83,Biology,1
+83,Literature,4
+83,Fine Arts,5
+83,Social Studies,10
+83,Chemistry,2
+83,Physics,2
+80,Biology,5
+80,Literature,45
+80,Fine Arts,18
+80,Other,2
+80,Social Studies,35
+80,Mathematics,1
+80,Chemistry,5
+80,Physics,10
+80,History,13
+81,Social Studies,1
+81,History,1
+81,Fine Arts,7
+86,Literature,6
+86,Fine Arts,2
+86,Other,1
+86,Social Studies,2
+86,Chemistry,1
+86,History,3
+87,Biology,1
+87,Literature,13
+87,Fine Arts,6
+87,Other,1
+87,Social Studies,11
+87,Chemistry,2
+87,Physics,1
+87,History,6
+84,Biology,1
+84,Literature,11
+84,Fine Arts,6
+84,Social Studies,5
+84,Chemistry,2
+84,Physics,2
+84,History,3
+85,Literature,6
+85,Fine Arts,1
+85,Social Studies,1
+85,Chemistry,1
+85,Physics,3
+85,History,2
+7,Biology,3
+7,Literature,32
+7,Chemistry,4
+7,Fine Arts,15
+7,Social Studies,20
+7,Astronomy,1
+7,Physics,4
+7,History,9
+245,Biology,1
+245,Literature,12
+245,Other,1
+245,Social Studies,38
+245,Mathematics,1
+245,History,8
+244,Biology,6
+244,Astronomy,2
+244,Physics,1
+244,Chemistry,13
+244,History,7
+247,Earth Science,1
+247,Biology,7
+247,Literature,33
+247,Fine Arts,5
+247,Social Studies,41
+247,Mathematics,2
+247,Chemistry,11
+247,Physics,17
+247,History,18
+246,Biology,1
+246,Literature,1
+246,Chemistry,2
+246,Fine Arts,1
+246,Social Studies,1
+246,Astronomy,2
+246,Physics,1
+246,History,2
+241,Biology,1
+241,Literature,8
+241,Fine Arts,1
+241,Social Studies,3
+241,Chemistry,1
+241,Physics,2
+241,History,2
+240,Literature,2
+240,Fine Arts,2
+240,Social Studies,3
+240,Chemistry,1
+240,Physics,2
+240,History,2
+243,Social Studies,30
+243,Mathematics,9
+243,Physics,6
+243,History,94
+242,Biology,9
+242,Literature,14
+242,Fine Arts,4
+242,Other,1
+242,Social Studies,23
+242,Chemistry,11
+242,Physics,1
+242,History,21
+249,Social Studies,4
+249,Fine Arts,1
+249,Biology,1
+249,Literature,3
+249,History,4
+248,Literature,18
+248,Other,1
+248,Social Studies,16
+248,Mathematics,3
+248,Physics,2
+248,History,38
+450,History,1
+451,History,1
+453,Literature,1
+453,Physics,1
+454,Physics,1
+455,Physics,1
+456,Physics,1
+457,Physics,1
+179,Biology,4
+179,Literature,11
+179,Fine Arts,6
+179,Social Studies,18
+179,Chemistry,1
+179,Physics,4
+179,History,5
+178,Social Studies,1
+178,Literature,2
+178,Chemistry,1
+178,Fine Arts,1
+177,Social Studies,1
+177,Literature,3
+177,History,3
+177,Fine Arts,1
+176,Social Studies,1
+176,Literature,3
+176,History,1
+175,Social Studies,2
+175,Literature,1
+175,History,2
+175,Physics,2
+175,Fine Arts,2
+174,Biology,1
+174,Literature,12
+174,Fine Arts,6
+174,Other,2
+174,Social Studies,5
+174,Chemistry,2
+174,Physics,2
+174,History,2
+173,Social Studies,2
+173,Literature,1
+173,History,1
+173,Fine Arts,2
+172,Biology,1
+172,Literature,8
+172,Fine Arts,3
+172,Social Studies,3
+172,Physics,2
+172,History,2
+171,Social Studies,2
+171,Literature,3
+171,Other,1
+171,History,1
+170,Biology,1
+170,Literature,8
+170,Fine Arts,3
+170,Social Studies,6
+170,Mathematics,1
+170,Chemistry,1
+170,Physics,3
+170,History,4
+253,Social Studies,1
+253,Literature,11
+253,Astronomy,2
+253,History,5
+182,Biology,3
+182,Literature,12
+182,Fine Arts,5
+182,Social Studies,13
+182,Chemistry,1
+182,Physics,4
+182,History,5
+183,Biology,3
+183,Literature,19
+183,Chemistry,2
+183,Fine Arts,9
+183,Other,1
+183,Social Studies,13
+183,Astronomy,1
+183,Physics,7
+183,History,8
+180,Biology,1
+180,Literature,16
+180,Chemistry,1
+180,Fine Arts,7
+180,Social Studies,10
+180,Mathematics,1
+180,Astronomy,1
+180,Physics,3
+180,History,4
+181,Biology,5
+181,Literature,10
+181,Fine Arts,3
+181,Social Studies,9
+181,Mathematics,1
+181,Chemistry,3
+181,Physics,8
+181,History,4
+186,Social Studies,1
+186,History,3
+186,Literature,4
+186,Fine Arts,2
+187,Social Studies,4
+187,History,1
+187,Literature,7
+187,Fine Arts,2
+184,Literature,1
+184,History,1
+184,Chemistry,1
+184,Fine Arts,1
+185,Social Studies,2
+185,Literature,3
+185,History,1
+185,Physics,2
+185,Fine Arts,1
+188,Biology,2
+188,Literature,12
+188,Fine Arts,4
+188,Other,1
+188,Social Studies,4
+188,Mathematics,1
+188,Chemistry,2
+188,History,3
+189,Biology,2
+189,Literature,9
+189,Fine Arts,3
+189,Other,1
+189,Social Studies,8
+189,Mathematics,1
+189,Chemistry,1
+189,Physics,3
+189,History,6
+11,Earth Science,1
+11,Biology,7
+11,Literature,51
+11,Astronomy,2
+11,Fine Arts,23
+11,Social Studies,37
+11,Mathematics,2
+11,Chemistry,10
+11,Physics,10
+11,History,18
+10,Earth Science,1
+10,Biology,21
+10,Literature,150
+10,Chemistry,21
+10,Fine Arts,58
+10,Other,3
+10,Social Studies,100
+10,Mathematics,5
+10,Astronomy,3
+10,Physics,20
+10,History,60
+13,Biology,8
+13,Literature,52
+13,Fine Arts,30
+13,Other,2
+13,Social Studies,35
+13,Mathematics,2
+13,Chemistry,8
+13,Physics,12
+13,History,19
+12,Biology,5
+12,Literature,29
+12,Fine Arts,64
+12,Other,1
+12,Social Studies,31
+12,Mathematics,1
+12,Chemistry,2
+12,Physics,5
+12,History,15
+15,Biology,3
+15,Literature,34
+15,Astronomy,1
+15,Fine Arts,13
+15,Other,1
+15,Social Studies,18
+15,Chemistry,1
+15,Physics,1
+15,History,4
+14,Earth Science,2
+14,Biology,27
+14,Literature,187
+14,Chemistry,24
+14,Fine Arts,64
+14,Other,9
+14,Social Studies,120
+14,Mathematics,14
+14,Astronomy,5
+14,Physics,38
+14,History,90
+17,Biology,2
+17,Literature,17
+17,Fine Arts,44
+17,Social Studies,14
+17,Mathematics,1
+17,Physics,1
+17,History,4
+16,Biology,1
+16,Literature,38
+16,Fine Arts,14
+16,Other,1
+16,Social Studies,29
+16,Physics,2
+16,History,14
+19,Biology,6
+19,Literature,200
+19,Fine Arts,73
+19,Other,6
+19,Social Studies,104
+19,Mathematics,2
+19,Chemistry,2
+19,Physics,8
+19,History,69
+18,Biology,25
+18,Literature,201
+18,Astronomy,3
+18,Fine Arts,111
+18,Other,8
+18,Social Studies,152
+18,Mathematics,8
+18,Chemistry,30
+18,Physics,45
+18,History,95
+62,Earth Science,1
+62,Biology,23
+62,Literature,188
+62,Astronomy,4
+62,Fine Arts,68
+62,Other,2
+62,Social Studies,107
+62,Mathematics,4
+62,Chemistry,21
+62,Physics,31
+62,History,69
+322,History,1
+323,Literature,1
+323,Physics,1
+323,History,1
+320,History,1
+321,Literature,1
+321,Fine Arts,1
+321,Chemistry,1
+321,History,1
+327,History,1
+325,History,1
+328,Literature,1
+328,Physics,1
+328,History,1
+329,Physics,1
+329,History,1
+201,Biology,3
+201,Literature,20
+201,Fine Arts,4
+201,Social Studies,8
+201,Physics,4
+201,History,7
+200,Biology,1
+200,Literature,1
+200,Fine Arts,2
+200,Other,1
+200,Social Studies,4
+200,Physics,3
+200,History,4
+203,Literature,10
+203,Fine Arts,2
+203,Other,1
+203,Social Studies,6
+203,Mathematics,1
+203,Chemistry,1
+203,Physics,1
+203,History,1
+202,Literature,8
+202,Fine Arts,6
+202,Social Studies,5
+202,Chemistry,2
+202,Physics,5
+202,History,4
+205,Social Studies,3
+205,Literature,9
+205,Physics,1
+205,Fine Arts,1
+204,History,1
+204,Literature,5
+204,Physics,1
+204,Fine Arts,2
+207,Literature,3
+207,Fine Arts,1
+207,Social Studies,1
+207,Chemistry,1
+207,Physics,1
+207,History,2
+206,Literature,2
+206,Fine Arts,1
+206,Social Studies,2
+206,Chemistry,1
+206,Physics,1
+206,History,1
+209,Social Studies,2
+209,Literature,2
+209,History,2
+209,Physics,1
+209,Fine Arts,2
+208,Literature,2
+208,Physics,1
+208,Chemistry,1
+208,Fine Arts,1
+77,Social Studies,4
+77,Literature,9
+77,History,2
+77,Other,1
+77,Fine Arts,2
+76,Biology,2
+76,Chemistry,5
+76,Fine Arts,10
+76,Social Studies,9
+76,Mathematics,2
+76,Astronomy,1
+76,Physics,7
+76,History,2
+75,Social Studies,7
+75,Literature,21
+75,History,3
+75,Fine Arts,9
+74,Biology,1
+74,Literature,10
+74,Fine Arts,5
+74,Other,1
+74,Social Studies,6
+74,Chemistry,1
+74,Physics,2
+74,History,3
+73,Earth Science,1
+73,Biology,29
+73,Literature,197
+73,Astronomy,6
+73,Fine Arts,92
+73,Other,8
+73,Social Studies,166
+73,Mathematics,9
+73,Chemistry,28
+73,Physics,37
+73,History,73
+72,Earth Science,1
+72,Biology,8
+72,Literature,62
+72,Fine Arts,27
+72,Other,2
+72,Social Studies,44
+72,Mathematics,2
+72,Chemistry,6
+72,Physics,12
+72,History,21
+71,Biology,8
+71,Literature,161
+71,Astronomy,2
+71,Chemistry,10
+71,Fine Arts,113
+71,Other,8
+71,Social Studies,130
+71,Mathematics,2
+71,Earth Science,1
+71,Physics,7
+71,History,117
+70,Biology,1
+70,Literature,47
+70,Fine Arts,19
+70,Other,1
+70,Social Studies,42
+70,Physics,1
+70,History,17
+79,Literature,15
+79,Chemistry,1
+79,Fine Arts,5
+79,Social Studies,17
+79,Astronomy,1
+79,Physics,2
+79,History,12
+78,Biology,1
+78,Literature,16
+78,Astronomy,1
+78,Fine Arts,5
+78,Other,2
+78,Social Studies,12
+78,Chemistry,1
+78,Physics,3
+78,History,4
+2,Biology,3
+2,Literature,10
+2,Chemistry,4
+2,Fine Arts,10
+2,Other,1
+2,Social Studies,13
+2,Mathematics,1
+2,Astronomy,2
+2,Physics,3
+2,History,7
+8,Biology,4
+8,Chemistry,7
+8,Fine Arts,14
+8,Other,1
+8,Social Studies,6
+8,Mathematics,1
+8,Astronomy,2
+8,Physics,6
+8,History,1
+120,Social Studies,10
+120,History,3
+120,Literature,12
+120,Chemistry,1
+120,Fine Arts,9
+121,Biology,3
+121,Literature,22
+121,Chemistry,2
+121,Fine Arts,5
+121,Other,1
+121,Social Studies,8
+121,Astronomy,2
+121,Physics,6
+121,History,6
+122,Biology,14
+122,Literature,54
+122,Chemistry,7
+122,Fine Arts,40
+122,Other,2
+122,Social Studies,68
+122,Mathematics,3
+122,Astronomy,1
+122,Physics,13
+122,History,36
+123,Biology,2
+123,Literature,43
+123,Fine Arts,13
+123,Social Studies,21
+123,Physics,1
+123,History,8
+124,Biology,7
+124,Literature,19
+124,Astronomy,1
+124,Fine Arts,14
+124,Social Studies,26
+124,Mathematics,3
+124,Chemistry,7
+124,Physics,9
+124,History,10
+125,Biology,1
+125,Literature,18
+125,Fine Arts,6
+125,Social Studies,11
+125,Physics,2
+125,History,4
+126,Biology,2
+126,Literature,17
+126,Chemistry,2
+126,Fine Arts,7
+126,Social Studies,10
+126,Astronomy,1
+126,Physics,5
+126,History,2
+127,Social Studies,3
+127,Fine Arts,2
+127,Literature,5
+127,History,3
+128,Social Studies,48
+128,Biology,1
+128,Literature,47
+128,Other,1
+128,History,19
+129,Biology,7
+129,Literature,53
+129,Astronomy,1
+129,Fine Arts,26
+129,Other,2
+129,Social Studies,44
+129,Mathematics,3
+129,Chemistry,9
+129,Physics,13
+129,History,18
+414,Physics,1
+416,History,1
+417,History,1
+410,Literature,1
+410,Physics,1
+411,Physics,1
+412,Physics,1
+413,Physics,1
+418,History,1
+419,Literature,1
+419,History,1
+319,Social Studies,1
+319,Fine Arts,1
+319,Literature,1
+319,History,1
+313,History,1
+312,Social Studies,2
+312,Literature,3
+311,Literature,1
+311,History,1
+310,History,1
+317,History,1
+316,History,1
+315,Literature,2
+315,Physics,1
+315,History,1
+314,Literature,1
+314,Biology,1
+314,Chemistry,1
+314,Physics,2
+314,History,1
+3,Earth Science,1
+3,Biology,36
+3,Literature,256
+3,Astronomy,3
+3,Fine Arts,115
+3,Other,13
+3,Social Studies,173
+3,Mathematics,14
+3,Chemistry,34
+3,Physics,49
+3,History,108
+368,History,1
+366,Literature,1
+366,History,1
+367,History,1
+364,Social Studies,1
+364,Literature,3
+364,Physics,2
+365,Social Studies,1
+365,Literature,1
+365,Physics,1
+362,Literature,1
+362,Chemistry,1
+363,Literature,1
+363,Fine Arts,1
+360,Literature,2
+360,Physics,1
+361,Literature,5
+361,Fine Arts,2
+361,Social Studies,3
+361,Chemistry,1
+361,Physics,1
+361,History,2
+380,History,1
+382,History,1
+383,Social Studies,1
+383,Literature,1
+384,Literature,2
+384,Physics,1
+384,History,1
+385,Social Studies,1
+385,Literature,1
+385,Physics,1
+386,Fine Arts,1
+386,Literature,1
+386,Chemistry,1
+386,History,2
+387,Literature,1
+388,Literature,1
+388,Physics,1
+389,Literature,1
+389,History,1
+252,Literature,3
+252,Social Studies,174
+252,Mathematics,22
+252,Chemistry,1
+252,Physics,1
+252,History,27
+60,Literature,76
+60,Fine Arts,29
+60,Other,3
+60,Social Studies,37
+60,Chemistry,1
+60,History,55
+61,Social Studies,7
+61,Literature,8
+61,History,2
+61,Physics,4
+61,Fine Arts,6
+258,Social Studies,1
+259,Social Studies,1
+259,Literature,2
+64,Biology,19
+64,Literature,221
+64,Astronomy,4
+64,Fine Arts,104
+64,Other,8
+64,Social Studies,143
+64,Mathematics,4
+64,Chemistry,13
+64,Physics,9
+64,History,44
+65,Social Studies,10
+65,History,5
+65,Literature,20
+65,Astronomy,1
+65,Fine Arts,7
+66,Biology,5
+66,Literature,29
+66,Astronomy,2
+66,Fine Arts,9
+66,Social Studies,22
+66,Mathematics,2
+66,Chemistry,4
+66,Physics,7
+66,History,15
+67,Literature,14
+67,Astronomy,1
+67,Fine Arts,8
+67,Social Studies,16
+67,Chemistry,5
+67,Physics,5
+67,History,1
+68,Biology,1
+68,Literature,10
+68,Fine Arts,5
+68,Social Studies,5
+68,Chemistry,1
+68,Physics,2
+68,History,4
+69,Biology,2
+69,Literature,13
+69,Fine Arts,4
+69,Other,1
+69,Social Studies,9
+69,Chemistry,2
+69,Physics,4
+69,History,4
+250,Biology,2
+250,Literature,11
+250,Fine Arts,3
+250,Social Studies,3
+250,Chemistry,2
+250,Physics,2
+250,History,3
+251,Social Studies,70
+251,Mathematics,10
+251,History,8
+256,Social Studies,3
+256,History,3
+256,Literature,3
+256,Physics,1
+256,Fine Arts,1
+257,Social Studies,1
+254,Biology,3
+254,Literature,3
+254,Chemistry,1
+254,Fine Arts,5
+254,Social Studies,13
+254,Astronomy,1
+254,Physics,2
+254,History,4
+255,Mathematics,1
+255,Literature,2
+255,Physics,6
+255,Astronomy,2
+168,Biology,2
+168,Literature,8
+168,Chemistry,3
+168,Fine Arts,3
+168,Social Studies,8
+168,Astronomy,2
+168,Physics,4
+168,History,5
+169,Biology,1
+169,Literature,6
+169,Fine Arts,4
+169,Social Studies,5
+169,Chemistry,1
+169,Physics,2
+169,History,2
+164,Biology,5
+164,Literature,2
+164,Astronomy,3
+164,Fine Arts,1
+164,Social Studies,15
+164,Mathematics,2
+164,Chemistry,12
+164,Physics,16
+164,History,13
+165,Biology,2
+165,Literature,5
+165,Fine Arts,6
+165,Social Studies,3
+165,Chemistry,1
+165,Physics,4
+165,History,3
+166,Biology,2
+166,Literature,9
+166,Fine Arts,4
+166,Social Studies,5
+166,Chemistry,1
+166,Physics,2
+166,History,4
+167,History,1
+167,Literature,3
+167,Chemistry,1
+167,Fine Arts,5
+167,Social Studies,6
+167,Astronomy,2
+167,Physics,1
+167,Earth Science,1
+160,Literature,3
+160,Fine Arts,1
+160,Other,1
+160,Social Studies,3
+160,Physics,1
+160,History,1
+161,Fine Arts,1
+162,Social Studies,1
+162,Literature,2
+162,History,2
+162,Fine Arts,2
+163,Social Studies,2
+163,Literature,3
+163,History,2
+163,Chemistry,1
+163,Fine Arts,1
+9,Earth Science,4
+9,Biology,37
+9,Literature,280
+9,Astronomy,34
+9,Fine Arts,278
+9,Other,18
+9,Social Studies,218
+9,Mathematics,14
+9,Chemistry,48
+9,Physics,61
+9,History,136
+357,Social Studies,1
+357,Literature,1
+356,Social Studies,2
+356,Fine Arts,1
+356,Literature,4
+356,History,1
+355,Literature,1
+354,Social Studies,12
+354,Literature,6
+354,Other,1
+354,Chemistry,1
+353,Physics,1
+352,Literature,2
+352,Physics,1
+352,Chemistry,1
+352,History,3
+351,Literature,6
+350,Social Studies,2
+350,Literature,2
+350,Chemistry,1
+359,Literature,1
+359,Physics,1
+359,History,1
+358,Social Studies,1
+358,Literature,1
+358,Physics,1
+216,History,1
+216,Fine Arts,1
+217,Social Studies,3
+217,Literature,3
+217,Physics,1
+217,History,2
+214,Literature,2
+214,Fine Arts,3
+214,Social Studies,2
+214,Chemistry,1
+214,Physics,1
+214,History,3
+215,History,1
+215,Literature,1
+215,Physics,1
+215,Fine Arts,1
+212,History,1
+212,Fine Arts,1
+213,Literature,3
+213,Fine Arts,2
+213,Social Studies,2
+213,Chemistry,1
+213,Physics,1
+213,History,2
+210,Social Studies,1
+210,Literature,1
+210,History,1
+210,Physics,2
+210,Fine Arts,1
+211,Literature,3
+211,Fine Arts,1
+211,Social Studies,2
+211,Chemistry,1
+211,Physics,1
+211,History,2
+218,Fine Arts,1
+219,Fine Arts,1
+289,Literature,1
+289,History,2
+288,Social Studies,2
+288,Literature,2
+288,Physics,1
+288,History,1
+4,Biology,12
+4,Literature,57
+4,Fine Arts,29
+4,Other,1
+4,Social Studies,39
+4,Mathematics,4
+4,Chemistry,6
+4,Physics,8
+4,History,19
+281,Biology,1
+281,Literature,5
+281,Social Studies,5
+281,Mathematics,1
+281,Chemistry,1
+281,Physics,1
+281,History,3
+280,Biology,2
+280,Literature,13
+280,Fine Arts,5
+280,Other,2
+280,Social Studies,8
+280,Chemistry,1
+280,Physics,2
+280,History,1
+283,Social Studies,1
+283,Fine Arts,1
+283,Literature,4
+283,Physics,1
+283,History,3
+282,Social Studies,3
+282,Literature,3
+282,Physics,2
+282,Chemistry,1
+282,History,2
+285,Literature,1
+285,Physics,2
+285,History,2
+284,Social Studies,1
+284,Literature,1
+284,Physics,1
+284,Chemistry,1
+284,History,2
+287,Literature,2
+287,History,1
+286,Literature,2
+286,Physics,2
+286,History,2
+263,Social Studies,1
+262,Social Studies,1
+262,Fine Arts,1
+262,Literature,1
+262,History,1
+261,Social Studies,1
+261,Literature,1
+260,Social Studies,2
+260,Fine Arts,1
+260,Literature,3
+260,History,1
+266,Literature,2
+266,Fine Arts,1
+266,Social Studies,2
+266,Chemistry,1
+266,Physics,1
+266,History,2
+265,Literature,2
+265,Fine Arts,1
+265,Social Studies,2
+265,Chemistry,1
+265,Physics,1
+265,History,1
+264,Social Studies,1
+264,Literature,1
+264,Physics,1
+59,Biology,6
+59,Literature,5
+59,Chemistry,6
+59,Fine Arts,2
+59,Other,1
+59,Social Studies,20
+59,Mathematics,1
+59,Astronomy,2
+59,Physics,13
+59,History,13
+58,Biology,4
+58,Literature,41
+58,Fine Arts,19
+58,Social Studies,28
+58,Mathematics,2
+58,Chemistry,5
+58,Physics,11
+58,History,13
+55,Biology,2
+55,Literature,16
+55,Fine Arts,4
+55,Social Studies,11
+55,Mathematics,1
+55,Chemistry,1
+55,Physics,5
+55,History,7
+54,Earth Science,2
+54,Biology,9
+54,Literature,68
+54,Fine Arts,40
+54,Social Studies,65
+54,Mathematics,1
+54,Chemistry,6
+54,Physics,11
+54,History,25
+57,Biology,4
+57,Literature,28
+57,Astronomy,1
+57,Fine Arts,12
+57,Social Studies,18
+57,Chemistry,2
+57,Physics,4
+57,History,13
+56,Biology,5
+56,Literature,31
+56,Fine Arts,9
+56,Social Studies,19
+56,Chemistry,1
+56,Physics,5
+56,History,10
+51,Earth Science,3
+51,Biology,31
+51,Literature,78
+51,Astronomy,2
+51,Fine Arts,52
+51,Other,1
+51,Social Studies,111
+51,Mathematics,11
+51,Chemistry,29
+51,Physics,41
+51,History,68
+50,Earth Science,1
+50,Biology,9
+50,Literature,90
+50,Astronomy,2
+50,Fine Arts,46
+50,Social Studies,74
+50,Mathematics,2
+50,Chemistry,12
+50,Physics,20
+50,History,33
+53,Earth Science,1
+53,Biology,5
+53,Literature,53
+53,Astronomy,1
+53,Fine Arts,25
+53,Other,1
+53,Social Studies,41
+53,Mathematics,2
+53,Chemistry,9
+53,Physics,11
+53,History,26
+52,Earth Science,2
+52,Biology,20
+52,Literature,133
+52,Chemistry,13
+52,Fine Arts,66
+52,Other,3
+52,Social Studies,67
+52,Mathematics,4
+52,Astronomy,3
+52,Physics,19
+52,History,40
+63,Biology,2
+63,Literature,32
+63,Fine Arts,9
+63,Other,1
+63,Social Studies,26
+63,Mathematics,2
+63,Physics,1
+63,History,16
+115,Earth Science,1
+115,Biology,8
+115,Literature,94
+115,Astronomy,2
+115,Fine Arts,38
+115,Other,2
+115,Social Studies,53
+115,Mathematics,3
+115,Chemistry,19
+115,Physics,12
+115,History,17
+114,Biology,7
+114,Literature,52
+114,Chemistry,1
+114,Fine Arts,32
+114,Other,1
+114,Social Studies,31
+114,Mathematics,2
+114,Astronomy,1
+114,Physics,8
+114,History,7
+117,Social Studies,4
+117,Literature,8
+117,History,5
+117,Other,1
+117,Fine Arts,5
+116,Biology,3
+116,Literature,25
+116,Fine Arts,13
+116,Social Studies,6
+116,Mathematics,2
+116,Chemistry,4
+116,Physics,9
+116,History,2
+111,Biology,5
+111,Literature,41
+111,Astronomy,2
+111,Fine Arts,6
+111,Other,2
+111,Social Studies,17
+111,Mathematics,3
+111,Chemistry,12
+111,Physics,15
+111,History,10
+110,Biology,1
+110,Literature,5
+110,Fine Arts,5
+110,Social Studies,3
+110,Chemistry,2
+110,Physics,1
+110,History,2
+113,Biology,1
+113,Literature,17
+113,Chemistry,3
+113,Fine Arts,10
+113,Social Studies,9
+113,Mathematics,2
+113,Astronomy,1
+113,Physics,6
+113,History,86
+112,Biology,7
+112,Literature,50
+112,Astronomy,1
+112,Fine Arts,27
+112,Other,1
+112,Social Studies,31
+112,Mathematics,2
+112,Chemistry,8
+112,Physics,7
+112,History,13
+119,Biology,14
+119,Literature,41
+119,Fine Arts,25
+119,Other,1
+119,Social Studies,52
+119,Mathematics,3
+119,Chemistry,10
+119,Physics,20
+119,History,17
+118,Biology,1
+118,Literature,4
+118,Fine Arts,4
+118,Social Studies,1
+118,Physics,1
+118,History,3
+429,Fine Arts,1
+428,Social Studies,1
+421,History,1
+420,History,1
+423,Social Studies,1
+425,Social Studies,1
+424,Social Studies,1
+427,Social Studies,1
+426,Social Studies,1
+308,History,1
+300,Social Studies,2
+300,Literature,3
+300,Other,1
+300,History,2
+301,Social Studies,2
+301,Literature,2
+301,Physics,1
+301,Chemistry,1
+301,History,2
+302,Social Studies,1
+302,Physics,2
+302,History,1
+303,Fine Arts,1
+303,Chemistry,1
+303,Physics,1
+303,History,1
+304,Literature,1
+304,History,1
+305,Literature,2
+305,Chemistry,1
+305,Physics,1
+305,History,2
+306,History,1
+307,History,1
+229,Social Studies,1
+229,Fine Arts,1
+228,History,1
+228,Fine Arts,1
+227,Social Studies,2
+227,Literature,1
+227,History,2
+227,Chemistry,1
+227,Fine Arts,1
+226,History,1
+226,Fine Arts,1
+225,History,1
+225,Physics,1
+225,Fine Arts,1
+224,History,1
+223,Literature,1
+223,History,1
+223,Physics,1
+223,Fine Arts,1
+222,Social Studies,1
+222,Fine Arts,1
+221,Literature,6
+221,Fine Arts,2
+221,Social Studies,5
+221,Chemistry,1
+221,Physics,1
+221,History,2
+220,Literature,6
+220,Fine Arts,4
+220,Social Studies,3
+220,Chemistry,1
+220,Physics,2
+220,History,1
+391,Literature,2
+390,Social Studies,1
+390,Literature,1
+390,Physics,1
+151,Biology,9
+151,Literature,1
+151,Chemistry,11
+151,Fine Arts,23
+151,Other,1
+151,Social Studies,4
+151,Astronomy,6
+151,Physics,8
+151,History,1
+150,Biology,2
+150,Literature,9
+150,Fine Arts,4
+150,Other,1
+150,Social Studies,5
+150,Physics,1
+150,History,5
+153,Literature,2
+153,Fine Arts,1
+153,Social Studies,1
+153,Chemistry,1
+153,Physics,1
+153,History,1
+152,Social Studies,5
+152,Physics,3
+152,Fine Arts,15
+155,Social Studies,2
+155,History,1
+155,Literature,8
+155,Fine Arts,3
+154,Biology,1
+154,Literature,9
+154,Fine Arts,3
+154,Social Studies,2
+154,Chemistry,2
+154,Physics,1
+157,Social Studies,3
+157,Fine Arts,1
+157,Literature,5
+157,Other,1
+157,History,3
+156,Biology,1
+156,Chemistry,2
+156,Fine Arts,3
+156,Social Studies,5
+156,Astronomy,1
+156,Physics,1
+156,History,3
+159,Literature,3
+159,Fine Arts,1
+159,Social Studies,2
+159,Chemistry,1
+159,Physics,1
+159,History,1
+158,Social Studies,2
+158,Literature,1
+158,History,1
+158,Physics,1
+158,Fine Arts,3
+399,Literature,1
+399,Physics,1
+398,Physics,1
+48,Earth Science,1
+48,Biology,6
+48,Literature,21
+48,Chemistry,9
+48,Fine Arts,2
+48,Social Studies,23
+48,Mathematics,1
+48,Astronomy,2
+48,Physics,10
+48,History,13
+49,Biology,8
+49,Literature,34
+49,Astronomy,2
+49,Fine Arts,14
+49,Social Studies,35
+49,Mathematics,3
+49,Chemistry,3
+49,Physics,9
+49,History,15
+46,Earth Science,1
+46,Biology,9
+46,Literature,118
+46,Astronomy,3
+46,Fine Arts,3
+46,Other,2
+46,Social Studies,45
+46,Mathematics,3
+46,Chemistry,23
+46,Physics,22
+46,History,16
+47,Earth Science,1
+47,Biology,15
+47,Literature,147
+47,Astronomy,3
+47,Fine Arts,68
+47,Other,7
+47,Social Studies,104
+47,Mathematics,2
+47,Chemistry,12
+47,Physics,25
+47,History,44
+44,Biology,5
+44,Literature,49
+44,Chemistry,2
+44,Fine Arts,16
+44,Other,1
+44,Social Studies,30
+44,Astronomy,1
+44,Physics,5
+44,History,18
+45,Literature,143
+45,Fine Arts,1
+45,Other,4
+45,Social Studies,2
+45,Mathematics,7
+45,Astronomy,1
+45,Physics,2
+42,Earth Science,1
+42,Biology,26
+42,Literature,197
+42,Astronomy,6
+42,Fine Arts,119
+42,Other,4
+42,Social Studies,139
+42,Mathematics,3
+42,Chemistry,33
+42,Physics,38
+42,History,95
+43,Earth Science,3
+43,Biology,36
+43,Literature,149
+43,Astronomy,6
+43,Fine Arts,101
+43,Other,8
+43,Social Studies,122
+43,Mathematics,3
+43,Chemistry,37
+43,Physics,37
+43,History,70
+40,Biology,3
+40,Literature,25
+40,Fine Arts,6
+40,Other,1
+40,Social Studies,79
+40,Mathematics,10
+40,Physics,5
+40,History,20
+41,Biology,2
+41,Literature,30
+41,Fine Arts,19
+41,Social Studies,24
+41,Mathematics,1
+41,Chemistry,2
+41,Physics,6
+41,History,7
+5,Biology,7
+5,Literature,40
+5,Fine Arts,24
+5,Social Studies,34
+5,Mathematics,2
+5,Chemistry,5
+5,Physics,12
+5,History,14

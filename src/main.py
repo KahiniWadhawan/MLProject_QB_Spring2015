@@ -1,16 +1,17 @@
-import sys
-sys.path.insert(0, '../')
-
-from collections import defaultdict
+import numpy as np
 from csv import DictReader
+from nltk.tag import pos_tag
+from collections import defaultdict
+
+from UserModel import User
+from Features import FeatureExtractor
+from Validation import Validation
+from sklearn.feature_extraction import DictVectorizer
+ 
 import random
 
-from FeatureExtractor.final_feature_extractor import FinalFeatureExtractor
-from Models.SuperModel import SuperModel
-from Validation import Validation
+folder_path = "../data"
 
-
-folder_path = "../../data"
 
 
 def data_import(path):
@@ -20,135 +21,255 @@ def data_import(path):
 	"""
 	return list(DictReader(open(path,"r")))
 
+def user_examples(user,train,questions):
+	"""
+	inputs: a user's id
+		   training set
+		   all questions
 
-def XY_generator(train_or_test,Y_flag=True):
+	# below may change
+    output: a list of tuple consisting of a dictioanry of a question
+    		and a position at which the user answered the question.
+    		[(question1,position1),(question2,position2),....
+    		This gives us questions a specific user answered and positions
+	"""
+
+	pos_qid = []
+	for t in train:
+		if t["user"] == str(user):
+			pos_qid.append((float(t["position"]),t["question"]))
+
+	assert len(pos_qid) > 0, "seems like there is no user named:%s"%user
+	qs_pos = []
+
+
+	for q in questions:
+		for i,(pos,qid) in enumerate(pos_qid):
+			if q["id"] == qid:
+				qs_pos.append((q,pos))
+
+	return zip(*qs_pos)
+
+def user_examples_all(rowid,train,questions):
+	"""
+	inputs: a user's id
+		   training set
+		   all questions
+
+	# below may change
+    output: a list of tuple consisting of a dictioanry of a question
+    		and a position at which the user answered the question.
+    		[(question1,position1),(question2,position2),....
+    		This gives us questions a specific user answered and positions
+	"""
+
+	pos_qid = []
+	for t in train:
+		if t["id"] == str(rowid):
+			pos_qid.append((float(t["position"]),t["question"]))
+			print "entered"
+		#print "pos_qid :: ", pos_qid
+
+	assert len(pos_qid) > 0, "seems like there is no user named:%s"%user
+	qs_pos = []
+
+
+	for q in questions:
+		for i,(pos,qid) in enumerate(pos_qid):
+			if q["id"] == qid:
+				qs_pos.append((q,pos))
+				
+	print "qs_pos :: ", qs_pos
+
+	return zip(*qs_pos)
+
+
+
+#kahini 
+def q_data_all(qid, questions):
+
+	qs = {}
+	for q in questions:
+		if q["id"] == qid:
+			qs = q
+
+	#print "inside q_data_all ::", qs	
+
+	return qs
+
+
+def XY_generator(user,train,questions,vocab):
 	"""
 	inputs: a user's id
 		    training set
 		    all questions
 
 	outputs:
-                X_POS is a dict:- key: (qid,uid), value: matrix 
-			of word level features for each entry in 
-			train & test 
-		
-		X_CO is conventional feature vec
-
+		X, a list of numpy arrays.
+			Example -> ([[1,2,3,4],
+						 [5,6,7,8],
+						 [9,10,11,12]])
 		Y, a list of answering positions  of a user 
 		    with respect to each question 
 		    Example -> ([60.21, 93.32, -56.89,...])
 
 	"""
-	
-	X_POS = defaultdict(list)
-	X_CO = defaultdict(list)
-	if Y_flag:Y = defaultdict(int)
+	X = []
+	Y = []
+	qs,Y = user_examples(user, train, questions)
 
-	count = 0 
-	FE = FinalFeatureExtractor()
-	for ex in train_or_test:
-		count += 1
-		#print "count :: ", count
-		row_id = ex["id"]
-		user_id = ex["user"]
-		qid = int(ex["question"])
-		print "qid:",qid
-		#if (qid == "500") or (qid == 500):
-		#	continue 
-		#print "user id , qid :: ", user_id, qid
-		FE(user_id,qid)
+	FE = FeatureExtractor()
+	for q in qs:
+		FE(q,vocab) # feed this FeatureExtractor with a question data
+		X.append(FE.extract())
 
-		X_word_level = FE.pos_feature_vec()
-	
-		for word_pos, feat_vec in X_word_level.iteritems():
-			X_POS[row_id].append(feat_vec)
+	return X,Y
 
-		X_CO[row_id] = FE.co_feature_vec()
+def XY_generator_all(train,questions,vocab):
+	"""
+	inputs: a user's id
+		    training set
+		    all questions
+
+	outputs:
+		X, a list of numpy arrays.
+			Example -> ([[1,2,3,4],
+						 [5,6,7,8],
+						 [9,10,11,12]])
+		Y, a list of answering positions  of a user 
+		    with respect to each question 
+		    Example -> ([60.21, 93.32, -56.89,...])
+
+	"""
+	Xs = []
+	Ys = []
+	#qs,Y = user_examples(user, train, questions)
+	count = 0	
+	FE = FeatureExtractor()
+	for ex in train:
+		count += 1 
+		#print "processing ex ", count
+		user = ex["user"]
+		rowid = ex["id"]
+		qid = ex["question"]
+		#res = user_examples_all(rowid, train, questions)
+		q = q_data_all(qid, questions)
+		#print "res :: ",res 
+		#q = ex["question"]
+		FE(q,vocab,user) # feed this FeatureExtractor with a question data
+		Xs.append(FE.extract())
+		Ys.append(float(ex["position"]))	
+	print "lens x y ::", len(Xs), len(Ys)
 		
-		if Y_flag:Y[row_id] = float(ex["position"])
-	
-	if Y_flag:
-		
-		return X_POS, X_CO, Y
-	else:
-		
-		return X_POS,X_CO
+	return Xs,Ys
 
+
+
+def X_generator(qid,question,vocab,user):
+	FE = FeatureExtractor()
+	for q in question:
+		if q["id"] == qid:
+			FE(q,vocab,user)
+			return FE.extract()
+
+def users(samples):
+	"""
+	From sample set, extract user ids 
+	"""
+	user_ids = set()
+
+	for s in samples:
+		user_ids.add(s["user"])
+	
+	return user_ids
+
+def ensemble(UserGroup,X):
+
+	most_common = lambda lst: max(set(lst), key=lst.count)
+
+	signs = []
+	positions = []
+	for u in UserGroup.keys():
+		output = float(UserGroup[u].regression_only_predict(X))
+		signs.append(np.sign(output))
+		positions.append(abs(output))
+
+	return most_common(signs)*np.average(positions)
 
 def train_test_split(percentage=0.75):
-	train = data_import(folder_path+"/little_train.csv")
-	print "IMPORTED TRAIN DATA"
-	X_POS, X_CO, Y = XY_generator(train)
-	print "GENERATED FEATURE X_POS, X_CO AND Y"
-	ex_ids = X_POS.keys()
+	print "in train_test_split"
+	train = data_import(folder_path+"/train.csv")
+	#little data - kahini 
+	#train = train[:200]	
+	train_splited = random.sample(train,int(len(train)*percentage))
+	train_id = []
+	for ts in train_splited:
+		train_id.append(ts["id"])
+
+	test_splited = []
+	for t in train:
+		if t["id"] not in train_id:
+			test_splited.append(t)
 	
-	train_ids = random.sample(ex_ids,int(len(train)*percentage))
-	test_ids = [i for i in ex_ids if i not in train_ids]
+	#print train_splited
+	return train_splited,test_splited
+
+def main(train=None,test=None):
+	train = data_import(folder_path+"/train.csv")
+	questions = data_import(folder_path+"/questions.csv")
+
+	vocab = None
 	
-	train_X_POS = {i:X_POS[i] for i in train_ids}
-	train_X_CO = {i:X_CO[i] for i in train_ids}
-	train_Y = {i:Y[i] for i in train_ids}
+	#training model - kahini
+	print "training model started"
+	X,Y = XY_generator_all(train,questions,vocab)
+	user = User()
 
-	test_X_POS = {i:X_POS[i] for i in test_ids}
-	test_X_CO = {i:X_CO[i] for i in test_ids}
-	test_Y = {i:Y[i] for i in test_ids}
+	vect = DictVectorizer()
+	X_train = vect.fit_transform(x for x in X)
 
-	return train_X_POS,train_X_CO,train_Y,test_X_POS,test_X_CO,test_Y
+	user.fit_regression(X_train, Y)
+	print "training model finished"
 
 
-def testing():
-	train_X_POS,train_X_CO,train_Y,test_X_POS,test_X_CO,test_Y =  train_test_split()
+	test = data_import(folder_path+"/test.csv")
+
+	test_splitted = [{"id":t["id"],"question":t["question"],"user":t["user"]} for t in test]
+	print "size of test_splitted :: ", len(test_splitted)
+	#test_Ys = [float(t["position"]) for t in test]
+	#test_splitted = test
+
 	
-	super_model = SuperModel()
-	super_model.fit_co(train_X_CO, train_Y)
- 	super_model.fit_pos(train_X_POS, train_Y)
+	print "Going to predict...."
+	test_Xs = []
+	t_ids = []
 
- 	predicted_Ys = {}
+	for t in test_splitted:
+		
+		user_id = t["user"]
+		test_Xs.append(X_generator(t["question"], questions,vocab,user_id))
+		t_ids.append(t["id"])
 
- 	for ex_id in test_Y.keys():
- 		predicted_Ys[ex_id] = super_model.predict(test_X_CO[ex_id],test_X_POS[ex_id])
- 		print "predicted:",predicted_Ys[ex_id],"true:",test_Y[ex_id]
- 		
- 	V = Validation(test_Y,predicted_Ys)
- 	print V.MSE()
- 	print V.worst_ten()
+	test_Xs_vectorized = vect.transform(x for x in test_Xs)
+	predict_Y = user.regression_only_predict(test_Xs_vectorized)
 
-
-
-
-def main():
-	train = data_import(folder_path+"/little_train.csv")
-	print "IMPORTED TRAIN DATA"
-	X_POS, X_CO, Y = XY_generator(train)
-	print "GENERATED FEATURE X_POS, X_CO AND Y"
+	for i,y in zip(t_ids,predict_Y):
+		print str(i)+","+str(y)
 
 
- 	super_model = SuperModel()
- 	super_model.fit_co(X_CO, Y)
- 	super_model.fit_pos(X_POS, Y)
+		
+	#V = Validation(test_Ys,predict_Y)
+	#print "V.RMSE():",V.RMSE()
+	#print "V.Correctness():",V.Correctness()
+	#V.Correctness_sign()
 
- 	test = data_import(folder_path+"/little_test.csv")
- 	print "IMPORTED TEST DATA"
- 	X_POS_test,X_CO_test = XY_generator(test, Y_flag=False)
- 	print "GENERATED FEATURE X_POS AND X_CO"
 
- 	print "------"*10
- 	print "id,position"
- 	for ex_id in X_POS_test.keys():
- 		print ex_id + "," + str(super_model.predict(X_CO_test[ex_id], X_POS_test[ex_id]))
-
+	
 
 
 
 
 
 if __name__ == "__main__":
-	#main()
-	testing()
-	
-	
-	
-
-
-
-
+	train,test = train_test_split()
+	main(train, test)

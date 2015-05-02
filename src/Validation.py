@@ -1,33 +1,29 @@
 from __future__ import division
 import math
+import numpy as np
 
 class Validation:
 
 	def __init__(self,true_Ys,predicted_Ys):
-		"""
-		input: true_Ys -> a dictionary whose key is example id and value is 
-						  correct Y value.
-		       predicted_Ys -> the same as one above except values are predicted.
-		"""
+		
 		self.true = true_Ys
 		self.predicted = predicted_Ys
 
 	def RMSE(self):
 		""" Root Mean Square Error"""
+		return math.sqrt(sum([(y1-y2)**2 for (y1,y2) in zip(self.true,self.predicted)])/len(self.true))
 
-		p = [] # predicted values
-		t = [] # true values
+	def Correctness(self):
+		result = [1 if np.sign(x) == np.sign(y) else 0 for x,y in zip(self.true,self.predicted)]
+		return sum(result)/len(result)
 
-		for k in self.true.keys():
-			p.append(self.predicted[k])
-			t.append(self.true[k])
+	def Correctness_sign(self):
+		true_plus = [t for t in self.true if np.sign(t) > 0]
+		predict_plus = [p for p in self.predicted if np.sign(p) > 0]
+		print "Ratio of plus in true values:",len(true_plus)/len(self.true)
+		print "Ratio of plus in predicted values:",len(predict_plus)/len(self.predicted)
 
-		return math.sqrt(sum([(y1-y2)**2 for (y1,y2) in zip(p,t)])/len(t))
-
-	def worst_ten(self):
-		return sorted([(k,(self.predicted[k]-self.true[k])**2)for k in self.true.keys()],
-					  key= lambda (k,diffence):diffence,)[-10:]
-
+	
 
 
 
@@ -37,5 +33,5 @@ if __name__ == "__main__":
 	a = {"a":10,"b":25,"c":-45}
 	b = {"a":17,"b":20,"c":-40}
 	V = Validation(a,b)
-	print V.MSE()
-	print V.worst_ten()
+	print V.RMSE()
+	
