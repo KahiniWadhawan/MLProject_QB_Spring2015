@@ -30,16 +30,19 @@ class WritePredictions(object):
         for item in self.predictions:
             if 1 in self.predictions[item].values():
                 self.index_1[item] = self.predictions[item].values().index(1)
+
             else:
                 self.index_1[item] = len(self.predictions[item])
                 
             if 2 in self.predictions[item].values():
                 self.index_2[item] = self.predictions[item].values().index(2)
+
             else:
                 self.index_2[item] = len(self.predictions[item])
                 
             if 3 in self.predictions[item].values():
                 self.index_3[item] = self.predictions[item].values().index(3)
+
             else:
                 self.index_3[item] = len(self.predictions[item])
 
@@ -65,6 +68,8 @@ class WritePredictions(object):
                 self.guesses[item] = -self.index_3[item]
             else:
                 self.guesses[item] = len(self.predictions[item]) -1
+
+        
                 
         w = writer(open(self.folder_path + 'guesses_count.csv', 'wb'))
         w.writerow(["id", "position"])
@@ -76,8 +81,8 @@ class WritePredictions(object):
 
 if __name__ == "__main__":
     
-    folder_path = '../../../predictions/vw_trial1/'
-    pred_file_name = 'pred_ect_first_run_full_train.txt'
+    folder_path = '../../../predictions/vw_trial8/'
+    pred_file_name = 'pred_pos_validation_ngram2.txt'
     predictions = defaultdict(dict)
     
     with open(folder_path+ pred_file_name, 'r') as fp:
@@ -86,6 +91,9 @@ if __name__ == "__main__":
             predicted_label = float(res[0])
             predicted_id = res[1].split('_')
             predictions[int(predicted_id[0])][int(predicted_id[1])] = predicted_label
+
+
+            
             
     with open(folder_path + re.sub('.txt', '.pkl', pred_file_name), 'w') as fp:
         pickle.dump(predictions, fp)

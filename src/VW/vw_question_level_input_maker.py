@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import sqlite3, os
 from csv import DictReader
@@ -48,7 +49,6 @@ class Prepare_VW_Input_Position_Model(object):
         d = self.user_feat_cur.execute(user_col_query_subcat)
         self.user_col_names = ['ufeat' + x[0] for x in c.description] + ['cr_' + x[0] for x in d.description][1:]
         
-        
         cat_col_query = 'select * from {};'.format(self.cat_feat_table)
         c = self.cat_feat_cur.execute(cat_col_query)
         self.cat_col_names = [x[0] for x in c.description]
@@ -63,7 +63,7 @@ class Prepare_VW_Input_Position_Model(object):
         query = "select * from {} where QuestionID = ?;".format(self.question_feat_table)
         c = self.question_feat_cur.execute(query,(question_id,))
         result = c.fetchall()
-        return result       
+        self.question_features = result[-1]  
     
     def get_user_features(self, user_id, question_id, new_user):
         self.user_features = []
@@ -71,9 +71,6 @@ class Prepare_VW_Input_Position_Model(object):
         c = self.user_feat_cur.execute(query,(user_id, self.get_category(question_id)))
         result = c.fetchall()
         
-        query = "select * from {} where user = ?;".format(self.user_subcat_feat_table)
-        d = self.user_feat_cur.execute(query,(user_id,))
-        res2 = d.fetchall()
         if new_user == False:
             query = "select * from {} where user = ?;".format(self.user_subcat_feat_table)
             d = self.user_feat_cur.execute(query,(user_id,))
@@ -100,64 +97,43 @@ class Prepare_VW_Input_Position_Model(object):
         else:
             new_user = False
             
-        result =  self.get_question_features(question_id)
         self.get_user_features(user_id, question_id, new_user)
         user_zipped = zip(self.user_col_names, self.user_features)
     
         self.get_cat_features(question_id)
         cat_zipped = zip(self.cat_col_names, self.cat_features)
         
-        label = 2
+        self.get_question_features(question_id)
+        ques_zipped = zip(self.question_col_names, self.question_features)
+        
+        text_write = ' |Text_Features ' + ' '.join([(str(x[1])) for x in ques_zipped[2:] if x[0] == 'text_so_far'])
+        ques_write = ' |Question_Features ' + ' '.join([(x[0] + ":" + str(x[1])) for x in ques_zipped[2:] if (x[0] != 'text_so_far' and x[1] != 0.)])
+        user_write =  ' |User_Features ' + ' '.join([(x[0] + ":" + str(x[1])) for x in user_zipped[2:] if x[1] != 0.])
+        cat_write = ' |Category_Features ' + ' '.join([(x[0] + ":" + str(x[1])) for x in cat_zipped[1:] if x[1] != 0.])
+        tag = "'" + str(user) + "_" + str(question)
+        
+        
+            
+        if kwargs.has_key('position'):
+            label = str(position)
+            label_write = label + " " + tag
+        
+        if kwargs.has_key('id'):
+            tag = "'" + str(id)
+            label_write = tag
+        
+        if kwargs.has_key('id') and kwargs.has_key('position'):
+            label = str(position)
+            tag = "'" + str(id)
+            label_write = label + " " + tag
+            
 
-        for word_pos, item in enumerate(result):
 
-            ques_zipped = zip(self.question_col_names, item)
-            text_write = ' |Text_Features ' + ' '.join([(str(x[1])) for x in ques_zipped[2:] if x[0] == 'text_so_far'])
-            ques_word_write = ' |Question_Features ' + ' '.join([(x[0] + ":" + str(x[1])) for x in ques_zipped[2:] if (x[0] != 'text_so_far' and x[1] != 0.)])
-            user_write =  ' |User_Features ' + ' '.join([(x[0] + ":" + str(x[1])) for x in user_zipped[2:] if x[1] != 0.])
-            cat_write = ' |Category_Features ' + ' '.join([(x[0] + ":" + str(x[1])) for x in cat_zipped[1:] if x[1] != 0.])
-            tag = "'" + str(user) + "_" + str(question) + "_" + str(word_pos)
-            
-#            if kwargs.has_key('position'):
-#                if num_classes == 2:
-#                    if word_pos == abs(position):
-#                        label = 1
-#                if num_classes == 3:
-#                    if word_pos == position:
-#                        label = 1
-#                    elif word_pos == -position:
-#                        label = 3
-#                    
-#                    
-#                label_write = str(label) + " " + tag
-#            elif kwargs.has_key('id'):
-#                tag = "'" + str(id) + "_" + str(word_pos)
-#                label_write = tag
-#            else:
-#                label_write = tag
-                
-            if kwargs.has_key('position'):
-                if num_classes == 2:
-                    if word_pos == abs(position):
-                            label = 1
-                if num_classes == 3:
-                    if word_pos == position:
-                        label = 1
-                    elif word_pos == -position:
-                        label = 3
-                label_write = str(label) + " " + tag
-            
-            if kwargs.has_key('id'):
-                tag = "'" + str(id) + str(word_pos)
-                label_write = tag
-            
-            if kwargs.has_key('id') and kwargs.has_key('position'):
-                tag = "'" + str(id) + "_" + str(word_pos)
-                label_write = str(label) + " " + tag
-    
-            write_vw = label_write + text_write + ques_word_write + user_write + cat_write + "\n"
-            with open(output_file,'a') as fp:
-                fp.write(write_vw)
+        write_vw = label_write + text_write + ques_write + user_write + cat_write + "\n"
+        with open(output_file,'a') as fp:
+            fp.write(write_vw)
+           
+        
 
 def make_validation_guess_file(id, position, output_file):   
     if not os.path.exists(output_file):
@@ -175,10 +151,10 @@ if __name__ == "__main__":
     passed_ids = []
     make_train = True
     make_test = True
-    val_offset = 1
+    val_offset = 2
     val_percent = 4
     
-    output_folder = '/Volumes/My Passport for Mac/MLProject_Home/data/trial8/'
+    output_folder = '/Volumes/My Passport for Mac/MLProject_Home/data/trial6/'
     train_users = []
     for sample in train:
         train_users.append(int(sample['user']))
@@ -197,7 +173,8 @@ if __name__ == "__main__":
             user = int(sample['user'])
             
             position = float(sample['position'])
-            vw.write_features(question, user, output_file = output_folder + 'vw_pos_all_train.txt', num_classes = 3, position = position)  
+            
+            vw.write_features(question, user, output_file = output_folder + 'vw_pos_all_train.txt', num_classes = 3, position = position)
             if (count + val_offset) % val_percent == 0:
                 vw.write_features(question, user, output_file = output_folder + 'vw_pos_validation.txt', num_classes = 3, id = id, position = position)
                 make_validation_guess_file(id, position, output_file = output_folder + 'val_guesses.csv')
@@ -220,3 +197,5 @@ if __name__ == "__main__":
                 vw.write_features(question, user, output_file = output_folder + 'vw_pos_test.txt', num_classes = 3, id = id, new_user = True)
             else:
                 vw.write_features(question, user, output_file = output_folder + 'vw_pos_test.txt', num_classes = 3, id = id)
+
+

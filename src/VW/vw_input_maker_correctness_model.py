@@ -10,7 +10,8 @@ class Prepare_VW_Input_Correctness_Model(object):
     question_feat_db = '../../../data/question_features2.db', \
     user_feat_db = '../../../data/quizbowl_user.db', cat_feat_db = '../../../data/quizbowl_category.db', \
     questions_table = 'questions' , question_feat_table = 'sparse_features_word', \
-    user_feat_table= 'user_features', cat_feat_table = 'category_all'):
+    user_feat_table= 'user_features', cat_feat_table = 'category_all', \
+    user_subcat_feat_table = 'user_only_subcat'):
         
         self.questions_conn = sqlite3.connect(questions_db)
         self.question_feat_conn = sqlite3.connect(question_feat_db)
@@ -40,7 +41,12 @@ class Prepare_VW_Input_Correctness_Model(object):
         
         user_col_query = 'select * from {};'.format(self.user_feat_table)
         c = self.user_feat_cur.execute(user_col_query)
-        self.user_col_names = [x[0] for x in c.description]
+    
+        user_col_query_subcat = 'select * from {};'.format(self.user_subcat_feat_table)
+        d = self.user_feat_cur.execute(user_col_query_subcat)
+        self.user_col_names = ['ufeat' + x[0] for x in c.description] + ['cr_' + x[0] for x in d.description][1:]
+        
+        print self.user_col_names
         
         cat_col_query = 'select * from {};'.format(self.cat_feat_table)
         c = self.cat_feat_cur.execute(cat_col_query)
@@ -58,12 +64,26 @@ class Prepare_VW_Input_Correctness_Model(object):
         result = c.fetchall()
         self.question_features = result[-1]  
     
-    def get_user_features(self, user_id, question_id):
+    def get_user_features(self, user_id, question_id, new_user):
         self.user_features = []
         query = "select * from {} where user = ? and category = ?;".format(self.user_feat_table)
         c = self.user_feat_cur.execute(query,(user_id, self.get_category(question_id)))
         result = c.fetchall()
-        self.user_features = list(result[0])
+        
+        query = "select * from {} where user = ?;".format(self.user_subcat_feat_table)
+        d = self.user_feat_cur.execute(query,(user_id,))
+        res2 = d.fetchall()
+        if new_user == False:
+            query = "select * from {} where user = ?;".format(self.user_subcat_feat_table)
+            d = self.user_feat_cur.execute(query,(user_id,))
+            res2 = d.fetchall()
+            
+        if new_user == True:
+            query = "select * from {} where user = ?;".format(self.user_subcat_feat_table)
+            d = self.user_feat_cur.execute(query,(-1,))
+            res2 = d.fetchall()
+            
+        self.user_features = list(result[0]) + list(res2[0])
         
     def get_cat_features(self, question_id):
         self.cat_features = []
@@ -72,7 +92,13 @@ class Prepare_VW_Input_Correctness_Model(object):
         result = c.fetchall()
         self.cat_features = list(result[0])
         
-    def write_features(self, question_id, user_id, output_folder, output_file, **kwargs):       
+    def write_features(self, question_id, user_id, output_folder, output_file, **kwargs): 
+        
+        if kwargs.has_key('new_user'): 
+            new_user = True
+        else:
+            new_user = False
+            
         self.get_user_features(user_id, question_id)
         user_zipped = zip(self.user_col_names, self.user_features)
     
@@ -132,6 +158,12 @@ if __name__ == "__main__":
         user_total_count[int(sample['user'])] += 1.
     
     train = DictReader(open(folder_path+"train.csv","r"))
+    
+    train_users = []
+    for sample in train:
+        train_users.append(int(sample['user']))
+        
+    train = DictReader(open(folder_path+"train.csv","r"))
     if make_train == True:       
         vw = Prepare_VW_Input_Correctness_Model()
         count = 0
@@ -165,4 +197,7 @@ if __name__ == "__main__":
             question = int(sample['question'])
             user = int(sample['user'])
             
-            vw.write_features(question, user, output_folder = output_folder, output_file = 'vw_cor_test.txt', id = id)
+            if user not in train_users:
+                vw.write_features(question, user, output_folder = output_folder, output_file = 'vw_cor_test.txt', id = id, new_user = True)
+            else:
+                vw.write_features(question, user, output_folder = output_folder, output_file = 'vw_cor_test.txt', id = id)

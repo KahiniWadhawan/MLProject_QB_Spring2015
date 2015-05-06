@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
-import sys, time
+import sys, time, re
 import cPickle as pickle
 import sqlite3, string
 sys.path.insert(0, '../')
 from question import Question
 from collections import defaultdict
 from csv import DictReader
+from nltk.stem.porter import PorterStemmer
+from nltk.corpus import stopwords
 
-with open("../../../data/sparse_mega_dict2.txt", "r") as fp:
-            k_sparse_mega_dict = pickle.load(fp)
+
+#with open("../../../data/sparse_mega_dict2.txt", "r") as fp:
+#            k_sparse_mega_dict = pickle.load(fp)
 
 passed_ids = []
+column_names = []
 class DB_Question_Features(object):
     def __init__(self, qid, granularity = 'word'):
         self.granularity = granularity
@@ -19,11 +23,16 @@ class DB_Question_Features(object):
         self.qid = int(qid)
         self.qtext = self.question.text
         self.features = defaultdict(dict)
-        self.conn = sqlite3.connect('../../../data/question_features2.db', timeout = 300)
+        self.conn = sqlite3.connect('../../../data/question_features2_with_text.db')
         self.cur = self.conn.cursor()
         self.create_table()
         self.sqlite_keywords = ['IN', 'IS', 'BY', 'TO', 'ON', 'OF', 'TO', 'SET']
         self.sparse_dict = defaultdict(int)
+        self.stemmer = PorterStemmer()
+        self.punct_table = string.maketrans("","")
+        self.punctuations = string.punctuation
+        self.pattern = r'[\!\"\#\$\%\&\\\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\\\]\^\_\`\{\|\}\~]'
+        self.stop_words = stopwords.words('english')
        
     def create_table(self):
         query  = 'CREATE TABLE IF NOT EXISTS sparse_features_word  (QuestionID INT NOT NULL , WordPosition INT NOT NULL, PRIMARY KEY (QuestionID, WordPosition));'
@@ -32,19 +41,23 @@ class DB_Question_Features(object):
         
     def add_column(self, column_name):
         try:
-            query = 'ALTER TABLE sparse_features_word ADD {} INT NOT NULL DEFAULT 0;'.format(column_name)
+            if column_name != 'text_so_far':
+                query = 'ALTER TABLE sparse_features_word ADD {} INT NOT NULL DEFAULT 0;'.format(column_name)
+            else:
+                query = 'ALTER TABLE sparse_features_word ADD {} TEXT NOT NULL DEFAULT "";'.format(column_name)
+            
             self.cur.execute(query,)
             self.conn.commit()
-            self.column_names.append(column_name)
+            column_names.append(column_name)
         except:
-            self.column_names.append(column_name)
+            column_names.append(column_name)
             pass
         
         
     def insert_row(self, word_pos):
         try:
             for column_name in self.sparse_dict.keys():
-                if column_name not in self.column_names:
+                if column_name not in column_names:
                     self.add_column(column_name)
                     
             query = 'INSERT INTO sparse_features_word (QuestionID, WordPosition, {}) VALUES ({});'.\
@@ -59,7 +72,7 @@ class DB_Question_Features(object):
         
     def update_value(self, word_pos):
         for column_name in self.sparse_dict.keys():
-            if column_name not in self.column_names:
+            if column_name not in column_names:
                 self.add_column(column_name)
                 
         query = 'UPDATE sparse_features_word SET {} WHERE QuestionID =? AND WordPosition =?'.\
@@ -118,7 +131,30 @@ class DB_Question_Features(object):
                             
                 self.sparse_dict[ner] += 1.
                 self.update_value(word_position)
+        
+    def count_caps(self):
+        '''counts number of caps, number of caps leaving out continuous caps in text at word level'''
+        prev = -2.
+        for word_position, word in enumerate(self.qtext.split()):  
+            if word[0].isupper():
+                self.sparse_dict['count_of_caps'] += 1.
+                if prev != word_position - 1:
+                    self.sparse_dict['c_of_caps_ignore_cont'] += 1.
+                prev = word_position
 
+            self.update_value(word_position)
+            #print word, word_position, self.sparse_dict['count_of_caps'], self.sparse_dict['c_of_caps_ignore_cont']
+            
+    def unigram_count(self):
+        self.sparse_dict = defaultdict(int)
+        qtext = re.sub(self.pattern, '', self.qtext)
+        qtext_split = [self.stemmer.stem(word.lower()) for word in qtext.split()]
+        for word_position, word in enumerate(qtext_split):
+            text_so_far = ' '.join(qtext_split[:word_position + 1])
+            self.sparse_dict['text_so_far'] = text_so_far
+
+            print word_position, text_so_far
+            #self.update_value(word_position)
                 
               
 if __name__ == "__main__":
@@ -129,9 +165,13 @@ if __name__ == "__main__":
         count += 1
         start_time = time.clock()
         qid = item['id']
+
         sp = DB_Question_Features(qid)
-        sp.sparse_features_sql()
+        #sp.sparse_features_sql()
+        #sp.count_caps()
+        sp.unigram_count()
         end_time = time.clock()
+        break
         print "count: ", count, "id: ", qid, " : ", ":: time: ", end_time - start_time
         
     sp.conn.close()
